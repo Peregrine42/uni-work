@@ -1,0 +1,27 @@
+package week3;
+
+import java.util.Scanner;
+
+public class Week3 {
+	
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		
+		System.out.print("first value? ");
+		int a = s.nextInt();
+		System.out.print("second value? ");
+		int b = s.nextInt();
+		
+		String result;
+		if (a < b) {
+			result = a + ", " + b;
+		} else if (a > b) {
+			result = b + ", " + a;
+		} else {
+			result = "a and b are the same";
+		}
+		
+		System.out.println(result);
+	}
+	
+}
