@@ -14,10 +14,9 @@ public class OpsAndExpressions {
 		System.out.print("angle: ");
 		double a = input.nextFloat();
 		
-		double radians = Math.toRadians(a);
-		double s = Math.sin(radians);
-		double c = Math.cos(radians);
-		double t = Math.tan(radians);
+		double s = Math.sin(Math.toRadians(a));
+		double c = Math.cos(Math.toRadians(a));
+		double t = Math.tan(Math.toRadians(a));
 		
 		System.out.printf("Sine:    %.4f\n", s);
 		System.out.printf("Cosine:  %.4f\n", c);
