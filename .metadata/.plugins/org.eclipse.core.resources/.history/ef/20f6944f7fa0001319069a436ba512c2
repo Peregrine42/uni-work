@@ -52,7 +52,7 @@ public class Week3 {
 		
 		int max_value = getInt(input, "Enter a first number: ");
 		int min_value = max_value;
-		int input_value = max_value;
+		int input_value = 0;
 		do {
 			if (input_value > max_value) {
 				max_value = input_value;

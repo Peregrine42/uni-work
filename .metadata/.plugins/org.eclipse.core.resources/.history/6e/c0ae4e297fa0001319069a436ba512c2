@@ -52,15 +52,15 @@ public class Week3 {
 		
 		int max_value = getInt(input, "Enter a first number: ");
 		int min_value = max_value;
-		int input_value = max_value;
+		int input_value = 0;
 		do {
+			input_value = getInt(input, "Enter a number (enter -1 to stop): ");
 			if (input_value > max_value) {
 				max_value = input_value;
 			}
 			if (input_value < min_value) {
 				min_value = input_value;
 			}
-			input_value = getInt(input, "Enter another number (enter -1 to stop): ");
 		} while (input_value != -1);
 		
 		System.out.println("max value: " + max_value);
