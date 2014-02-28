@@ -1,0 +1,77 @@
+package week4;
+
+public class week4 {
+	
+	public static void main(String[] args) {
+		Integer[] numbers = { 17, 89, 27, 11, 91, 42, 73, 90, 5, 56 };
+		
+		int minimum = min(numbers);
+		int maximum = max(numbers);
+		System.out.println("Min: " + minimum);
+		System.out.println("Max: " + maximum);
+		
+		int range = maximum - minimum;
+		System.out.println("Range: " + range);
+		
+		double mean = mean(numbers);
+		System.out.printf("Mean: %.4f\n", mean);
+		
+		double stdDev = standardDeviation(mean, numbers);
+		System.out.printf("Standard Deviation: %.4f\n", stdDev);
+	}
+	
+	public static int min(Integer[] numbers) {
+		int min_value = numbers[0];
+		
+		for (int i = 1; i < numbers.length; i++) {
+			if (numbers[i] < min_value) {
+				min_value = numbers[i];
+			}
+		}
+		
+		return min_value;
+	}
+	
+	public static int max(Integer[] numbers) {
+		int max_value = numbers[0];
+		
+		for (int i = 1; i < numbers.length; i++) {
+			if (numbers[i] > max_value) {
+				max_value = numbers[i];
+			}
+		}
+		
+		return max_value;
+	}
+	
+	public static double mean(Integer[] numbers) {
+		int total = 0;
+		
+		for (int i = 0; i < numbers.length; i++) {
+			total += numbers[i];
+		}
+		
+		double mean = total / (double) numbers.length;
+		
+		return mean;
+	}
+	
+	public static double standardDeviation(double mean, Integer[] numbers) {
+		// double[] deviations = new double[numbers.length];
+		
+		double deviation;
+		double total = 0;
+		for (int i = 0; i < numbers.length; i++) {
+			deviation = numbers[i] - mean;
+			deviation = Math.pow(deviation, 2);
+			total += deviation;
+		}
+		
+		double variance = total / numbers.length;
+		
+		variance = Math.sqrt(variance);
+		
+		return variance;
+	}
+	
+}

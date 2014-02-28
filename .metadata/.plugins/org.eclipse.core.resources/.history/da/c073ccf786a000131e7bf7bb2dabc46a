@@ -1,0 +1,41 @@
+package week4;
+
+public class week4 {
+	
+	public static void main(String[] args) {
+		Integer[] numbers = { 17, 89, 27, 11, 91, 42, 73, 90, 5, 56 };
+		
+		int minimum = min(numbers);
+		int maximum = max(numbers);
+		System.out.println("Min: " + minimum);
+		System.out.println("Max: " + maximum);
+		
+		int range = maximum - minimum;
+		System.out.println("Range: " + range);
+	}
+	
+	public static int min(Integer[] numbers) {
+		int min_value = numbers[0];
+		
+		for (int i = 1; i < numbers.length; i++) {
+			if (numbers[i] < min_value) {
+				min_value = numbers[i];
+			}
+		}
+		
+		return min_value;
+	}
+	
+	public static int max(Integer[] numbers) {
+		int max_value = numbers[0];
+		
+		for (int i = 1; i < numbers.length; i++) {
+			if (numbers[i] > max_value) {
+				max_value = numbers[i];
+			}
+		}
+		
+		return max_value;
+	}
+	
+}
