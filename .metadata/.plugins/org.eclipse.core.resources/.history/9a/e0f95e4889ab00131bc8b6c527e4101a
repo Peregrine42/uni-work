@@ -1,0 +1,101 @@
+package week6.com;
+
+import java.util.Scanner;
+
+public class week6 {
+
+	public static void main(String[] args) {
+		
+		
+
+	}
+	
+	public static double getDouble(Scanner s, String message) {
+		System.out.print(message + " ");
+		double d = s.nextDouble();
+		return d;
+	}
+
+}
+
+class Circle {
+	
+	double radius;
+	
+	Circle(Scanner s) {
+		radius = week6.getDouble(s, "Enter a radius: ");
+	}
+	
+	Circle(double r) {
+		radius = r;
+	}
+	
+	public double perimeter() {
+		return 2 * radius * Math.PI;
+	}
+	
+	public double area() {
+		return Math.pow(radius, 2) * Math.PI;
+	}
+	
+}
+
+class Triangle {
+	
+	double width;
+	double height;
+	
+	Triangle(Scanner s) {
+		width  = week6.getDouble(s, "Enter a width: ");
+		height = week6.getDouble(s, "Enter a height: ");
+	}
+	
+	Triangle(double w, double h) {
+		width = w;
+		height = h;
+	}
+	
+	public double area() {
+		return Math.pow(radius, 2) * Math.PI;
+	}
+	
+}
+
+class Square {
+	
+	double width;
+	
+	Square(Scanner s) {
+		width = week6.getDouble(s, "Enter a width: ");
+	}
+	
+	Square(double w) {
+		width = w;
+	}
+	
+	public double perimeter() {
+		return 4 * width;
+	}
+	
+	public double area() {
+		return Math.pow(width, 2);
+	}
+	
+}
+
+class Sphere {
+	
+	double radius;
+	
+	Sphere(double r) {
+		radius = r;
+	}
+	
+	public double surfaceArea() {
+		return 4 * Math.PI * Math.pow(radius, 2);
+	}
+	
+	public double volume() {
+		return (4 * Math.PI * Math.pow(radius, 3)) / 3;
+	}
+}

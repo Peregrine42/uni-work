@@ -1,0 +1,144 @@
+package week6.com;
+
+import java.util.Scanner;
+
+public class week6 {
+
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		System.out.print("Which shape? ");
+		String choice = input.next();
+		Shape s = new Shape();
+		switch (choice) {
+		case "t":
+			s = new Triangle(input);
+			break;
+		case "s":
+			s = new Square(input);
+			break;
+		case "c":
+			s = new Circle(input);
+			break;
+		}
+		
+		System.out.printf("Area of shape: %.4f", s.area());
+	}
+	
+	public static double getDouble(Scanner s, String message) {
+		System.out.print(message + " ");
+		double d = s.nextDouble();
+		return d;
+	}
+
+}
+
+class Shape {
+	
+	public double area() {
+		return 0.0;
+	}
+	
+}
+
+class Circle extends Shape {
+	
+	double radius;
+	
+	Circle(Scanner s) {
+		radius = week6.getDouble(s, "Enter a radius: ");
+	}
+	
+	Circle(double r) {
+		radius = r;
+	}
+	
+	public double perimeter() {
+		return 2 * radius * Math.PI;
+	}
+	
+	public double area() {
+		return Math.pow(radius, 2) * Math.PI;
+	}
+	
+}
+
+class Triangle extends Shape {
+	
+	double width;
+	double height;
+	
+	Triangle(Scanner s) {
+		width  = week6.getDouble(s, "Enter a width: ");
+		height = week6.getDouble(s, "Enter a height: ");
+	}
+	
+	Triangle(double w, double h) {
+		width = w;
+		height = h;
+	}
+	
+	public double area() {
+		return width * height * 0.5;
+	}
+	
+}
+
+class Rectangle extends Shape {
+	
+	double width;
+	double height;
+	
+	Rectangle(Scanner s) {
+		width  = week6.getDouble(s, "Enter a width: ");
+		height = week6.getDouble(s, "Enter a height: ");
+	}
+	
+	Rectangle(double w, double h) {
+		width = w;
+		height = h;
+	}
+	
+	public double area() {
+		return width * height;
+	}
+	
+}
+
+class Square extends Shape {
+	
+	double width;
+	
+	Square(Scanner s) {
+		width = week6.getDouble(s, "Enter a width: ");
+	}
+	
+	Square(double w) {
+		width = w;
+	}
+	
+	public double perimeter() {
+		return 4 * width;
+	}
+	
+	public double area() {
+		return Math.pow(width, 2);
+	}
+	
+}
+
+class Sphere {
+	
+	double radius;
+	
+	Sphere(double r) {
+		radius = r;
+	}
+	
+	public double surfaceArea() {
+		return 4 * Math.PI * Math.pow(radius, 2);
+	}
+	
+	public double volume() {
+		return (4 * Math.PI * Math.pow(radius, 3)) / 3;
+	}
+}
