@@ -1,0 +1,38 @@
+package uk.ac.ucs.week7;
+
+public class Week7 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+
+class Point {
+	
+	private double x;
+	private double y;
+	
+	Point(double x, double y) {
+		setX(x);
+		setY(y);
+	}
+	
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}	
+	
+}

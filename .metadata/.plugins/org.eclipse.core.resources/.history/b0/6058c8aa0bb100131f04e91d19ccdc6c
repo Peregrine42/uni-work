@@ -1,0 +1,111 @@
+package uk.ac.ucs.week7;
+
+public class Week7 {
+
+	public static void main(String[] args) {	
+		two();
+	}
+	
+	public static void two() {
+		Circle c = new Circle(new Point(0,0), 4);
+		Point p = new Point(3, 4);
+		String s = "is not";
+		if (c.contains(p)) {
+			s = "is";
+		}
+		System.out.print(p + " " + s + " in the circle:");
+	}
+	
+	public static void one() {
+		Rectangle r = new Rectangle(new Point(0,2), 
+					                new Point(2,2),
+					                new Point(0,0),
+					                new Point(2,0));
+
+		System.out.printf("%.4f units\n", r.perimeter());
+		System.out.printf("%.4f units squared\n", r.area());
+	}
+}
+
+class Point {
+	
+	private double x;
+	private double y;
+	
+	Point(double x, double y) {
+		setX(x);
+		setY(y);
+	}
+	
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}	
+	
+	public double distance(Point p) {
+		double squared =  Math.pow(p.getX()-getX(), 2) +
+						  Math.pow(p.getY()-getY(), 2);
+		return Math.sqrt(squared);
+	}
+	
+	public String toString() {
+		String stringX = String.format("%.1f", getX());
+		String stringY = String.format("%.1f", getY());
+		return "point(" + stringX + ", " + stringY + ")";
+	}
+	
+}
+
+class Circle {
+	Point center;
+	double radius;
+	
+	Circle(Point c, double r) {
+		center = c;
+		radius = r;
+	}
+	
+	public boolean contains(Point p) {
+		if (center.distance(p) < radius) {
+			return true;
+		}
+		return false;
+	}
+}
+
+class Rectangle {
+	
+	Point[] p;
+	
+	Rectangle(Point p1, Point p2, Point p3, Point p4) {
+		p = new Point[4];
+		p[0] = p1;
+		p[1] = p2;
+		p[2] = p3;
+		p[3] = p4;
+	}
+	
+	public double perimeter() {
+		return p[0].distance(p[1]) + 
+			   p[1].distance(p[3]) + 
+			   p[2].distance(p[3]) + 
+			   p[0].distance(p[2]);
+	}
+	
+	public double area() {
+		return p[0].distance(p[1]) *
+			   p[0].distance(p[2]);
+	}
+	
+}

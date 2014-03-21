@@ -12,7 +12,11 @@ public class ThreeFloats {
 		}
 		
 		float average = total / inputs.length;
-		System.out.printf("Inputs\n%.4f", average);
+		System.out.print("Inputs: ");
+		for (int i = 0; i < inputs.length; i++) {
+			System.out.print(inputs[i] + " ");
+		}
+		System.out.printf("\nOutput: %.4f", average);
 	}
 	
 }
