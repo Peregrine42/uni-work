@@ -1,0 +1,19 @@
+package question4;
+
+import java.util.Scanner;
+
+public class ThreeFloats {
+
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		String floats_as_string = input.next();
+		input.close();
+		
+		String[] strings = floats_as_string.split(", ");
+		
+		for (String string : strings) {
+			System.out.println("/" + string + "/");
+		}
+	}
+	
+}

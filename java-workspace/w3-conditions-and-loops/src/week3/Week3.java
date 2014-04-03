@@ -154,6 +154,8 @@ public class Week3 {
 		System.out.print("second value? ");
 		int b = s.nextInt();
 		
+		s.close();
+		
 		String result;
 		if (a < b) {
 			result = a + ", " + b;

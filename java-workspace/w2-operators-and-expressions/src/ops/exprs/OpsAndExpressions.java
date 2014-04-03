@@ -14,6 +14,8 @@ public class OpsAndExpressions {
 		System.out.print("angle: ");
 		double a = input.nextFloat();
 		
+		input.close();
+		
 		double radians = Math.toRadians(a);
 		double s = Math.sin(radians);
 		double c = Math.cos(radians);
@@ -35,6 +37,8 @@ public class OpsAndExpressions {
 		
 		System.out.print("c: ");
 		int c = input.nextInt();
+		
+		input.close();
 		
 		double partialResult = ((b*b) - (4.0*a*c));
 		
@@ -62,6 +66,8 @@ public class OpsAndExpressions {
 		System.out.print("Radius: ");
 		double r = input.nextFloat();
 		
+		input.close();
+		
 		double width = r*2;
 		System.out.printf("Smallest Square Width: %.4f\n", width);
 	}
@@ -71,6 +77,8 @@ public class OpsAndExpressions {
 		
 		System.out.print("Radius: ");
 		double r = input.nextFloat();
+		
+		input.close();
 		
 		double pi = Math.PI;
 		
@@ -96,6 +104,7 @@ public class OpsAndExpressions {
 		System.out.print("Second input: ");
 		double b = input.nextFloat();
 		
+		input.close();
 		
 		double sum = a + b;
 		double difference = a - b;
@@ -118,6 +127,8 @@ public class OpsAndExpressions {
 		
 		System.out.print("Second input: ");
 		int b = input.nextInt();
+		
+		input.close();
 		
 		int sum = a + b;
 		System.out.println("Sum: " + sum);

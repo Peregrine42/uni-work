@@ -1,0 +1,31 @@
+package question4;
+
+import java.util.Scanner;
+
+public class ThreeFloats {
+
+	public static void main(String[] args) {
+		System.out.println("Please enter three numbers seperated by spaces:");
+		Scanner input = new Scanner(System.in);
+		do {
+		String floats_as_string = input.nextLine();
+		input.close();
+		
+		String[] strings = floats_as_string.split(" +");
+		
+	} while (strings.length > 0);
+		
+		System.out.println("You input:");
+		
+		float total = 0;
+		for (String string : strings) {
+			System.out.println(string);
+			float number = Float.parseFloat(string);
+			total += number;
+		}
+		
+		float average = total/strings.length;
+		System.out.printf("Average: %.4f\n", average);
+	}
+	
+}
