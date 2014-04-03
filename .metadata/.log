@@ -2684,3 +2684,175 @@ Java Model Exception: Java Model Status [Deviation [in [Working copy] week6.java
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
 !SUBENTRY 1 org.eclipse.jdt.core 4 969 2014-03-21 15:54:27.365
 !MESSAGE Deviation [in [Working copy] week6.java [in week6.com [in src [in w6-objects1]]]] does not exist
+!SESSION 2014-04-03 15:09:31.219 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_07
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_GB
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-04-03 15:10:51.464
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property http.proxyHost is not set but should be proxy.intra.bt.com.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property https.proxyHost is not set but should be proxy.intra.bt.com.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property socksProxyHost is not set but should be proxy.intra.bt.com.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property socksProxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property https.proxyHost is not set but should be proxy.intra.bt.com.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property socksProxyHost is not set but should be proxy.intra.bt.com.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property socksProxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property socksProxyHost is not set but should be proxy.intra.bt.com.
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-03 15:10:52.354
+!MESSAGE System property socksProxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.team.core 4 0 2014-04-03 15:10:53.539
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w7-objects2.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project w7-objects2.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:92)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:157)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1520)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2014-04-03 15:10:53.539
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w7-objects2.
+
+!ENTRY org.eclipse.team.core 4 0 2014-04-03 15:10:53.555
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w6-objects1.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project w6-objects1.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:92)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:157)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1520)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2014-04-03 15:10:53.555
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w6-objects1.
+
+!ENTRY org.eclipse.team.core 4 0 2014-04-03 15:10:53.555
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w5-strings-and-design.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project w5-strings-and-design.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:92)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:157)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1520)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2014-04-03 15:10:53.555
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w5-strings-and-design.
+
+!ENTRY org.eclipse.team.core 4 0 2014-04-03 15:10:53.555
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w4-arrays.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project w4-arrays.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:92)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:157)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1520)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2014-04-03 15:10:53.555
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w4-arrays.
+
+!ENTRY org.eclipse.team.core 4 0 2014-04-03 15:10:53.555
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w3-conditions-and-loops.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project w3-conditions-and-loops.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:92)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:157)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1520)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2014-04-03 15:10:53.555
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w3-conditions-and-loops.
+
+!ENTRY org.eclipse.team.core 4 0 2014-04-03 15:10:53.555
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w2-operators-and-expressions.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project w2-operators-and-expressions.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:92)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:157)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1520)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2014-04-03 15:10:53.555
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project w2-operators-and-expressions.
+
+!ENTRY org.eclipse.team.core 4 0 2014-04-03 15:10:53.570
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Assessment1.
+!STACK 1
+org.eclipse.team.core.TeamException: Could not instantiate provider org.eclipse.egit.core.GitProvider for project Assessment1.
+	at org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:165)
+	at org.eclipse.team.core.RepositoryProvider.mapExistingProvider(RepositoryProvider.java:235)
+	at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:507)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getProvider(TeamHookDispatcher.java:97)
+	at org.eclipse.team.internal.core.TeamHookDispatcher.getRuleFactory(TeamHookDispatcher.java:105)
+	at org.eclipse.core.internal.resources.Rules.factoryFor(Rules.java:92)
+	at org.eclipse.core.internal.resources.Rules.refreshRule(Rules.java:157)
+	at org.eclipse.core.internal.resources.Resource.refreshLocal(Resource.java:1520)
+	at org.eclipse.core.internal.refresh.RefreshJob.runInWorkspace(RefreshJob.java:166)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:38)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+!SUBENTRY 1 org.eclipse.team.core 4 0 2014-04-03 15:10:53.570
+!MESSAGE Could not instantiate provider org.eclipse.egit.core.GitProvider for project Assessment1.
