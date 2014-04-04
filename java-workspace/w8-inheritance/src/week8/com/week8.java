@@ -1,18 +1,44 @@
 package week8.com;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 
 public class week8 {
 
 	public static void main(String[] args) {
+		threeA();
+	}
+	
+	public static void threeA() {
 		
+		int b = 2;
+		int i = 3;
+		int m = 4;
+		
+		Linear l    = new Linear(b, i);
+		Quadratic q = new Quadratic(b, m);
+		
+		int amount = 10;
+		
+		int[] totals = new int[amount];
+		int[] totals2 = new int[amount];
+		for (int j = 0; j < amount ; j++) {
+			totals[j]  = l.generate(j);
+			totals2[j] = q.generate(j);
+		}
+		
+		for (int j = 0; j < amount ; j++) {
+			System.out.println(totals[j]);
+		}
+		
+		System.out.println();
+		
+		for (int j = 0; j < amount ; j++) {
+			System.out.println((int) totals2[j]);
+		}
+	}
+	
+	public static void two() {
+		Date d = new Date(2, 1, 2013);
+		System.out.println(d.dayOfTheWeek());
 	}
 	
 	public static void one() {
@@ -38,11 +64,54 @@ public class week8 {
 	}
 }
 
+interface Sequence {
+	public int generate(int i);
+}
+
+class Linear implements Sequence {
+	int a;
+	int b;
+	
+	Linear(int a, int b) {
+		this.a = a;
+		this.b = b;
+	}
+	
+	public int generate(int i) {
+		return a + (b * i);
+	}
+}
+
+class Quadratic implements Sequence {
+	int a;
+	int b;
+	
+	Quadratic(int a, int b) {
+		this.a = a;
+		this.b = b;
+	}
+	
+	public int generate(int i) {
+		return (int) (a + (Math.pow(b, i)));
+	}
+}
+
 class Date {
 	int day;
 	int month;
 	int year;
-	int[] days = { 31, 28, 31, 30, 31, 30, 31, 31, 30 };
+	            //jan feb mar  apr may jun jul aug sep oct nov dec
+	int[] days = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	
+	String[] dayLabels = { "monday", 
+			               "tuesday",
+			               "wednesday",
+			               "thursday",
+			               "friday",
+			               "saturday",
+			               "sunday" };
+	
+	int dayOffset = 1;
 	
 	Date(int d, int m, int y) {
 		day = d;
@@ -50,124 +119,22 @@ class Date {
 		year = y;
 	}
 	
-	
-}
-
-class Book {
-	
-	public String author;
-	public String title;
-	public double price;
-	public String format;
-	
-	Book(String author,
-		 String title,
-		 double price,
-		 String format) {
+	public int daysSinceStartOfYear() {
+		int total = 0;
 		
-		this.author = author;
-		this.title = title;
-		this.price = price;
-		this.format = format;
-		
-	}
-	
-	public String toString() {
-		return title + " by " + author + " (" + format + ", priced: " + price + ")";
-	}
-	
-	public String getSearchableField(String label) {
-		if (label.equals("author")) {
-			return this.author;
-		} else {
-			if (label.equals("format")) {
-				return this.format;
-			}
-		};
-		return this.title;
-	}
-	
-}
-
-class Library {
-	
-	public ArrayList<Book> books;
-	
-	Library() {
-		this.books = new ArrayList<Book>();
-	}
-	
-	public ArrayList<Book> getByLabel(String target, String label) {
-		ArrayList<Book> result = new ArrayList<Book>();
-		for (int i = 0; i < books.size(); i++) {
-			Book book = books.get(i);
-			if (book.getSearchableField(label).contains(target)) {
-				result.add(book);
-			}
-		}
-		return result;
-	}
-	
-	public String toString() {
-		String result = "";
-		
-		for (int i = 0; i < books.size(); i++) {
-			Book book = books.get(i);
-			result += book.toString() + "\n";
+		for (int i = 0; i < month - 1; i++) {
+			total += days[month];
 		}
 		
-		return result;
+		total += day;
+		
+		total -= 1;
+		return total;
 	}
 	
-	public void sortByAuthor() {
-		Collections.sort(books, new labelComparator("author"));
+	public String dayOfTheWeek() {
+		return dayLabels[(daysSinceStartOfYear() % 7) + dayOffset];
 	}
 	
-	public void sortByFormat() {
-		Collections.sort(books, new labelComparator("format"));
-	}
 	
-	public void sortByTitle() {
-		Collections.sort(books, new labelComparator("title"));
-	}
-	
-	public void sortByPrice() {
-		Collections.sort(books, new Comparator<Object>() {
-
-			@Override
-			public int compare(Object o1, Object o2) {
-				double price1 = ((Book) o1).price;
-				double price2 = ((Book) o2).price;
-				int comp = Double.compare(price1, price2);
-				return comp;
-			}
-			
-		});
-	}
-	
-	public static String resultToString(ArrayList<Book> a) {
-		String result = "";
-		for (int i = 0; i < a.size(); i++) {
-			Object o = a.get(i);
-			result += o.toString() + "\n";
-		}
-		return result;
-	}
-	
-}
-
-class labelComparator implements Comparator<Object> {
-	
-	String label;
-	
-	labelComparator(String label) {
-		this.label = label;
-	}
-	
-	public int compare(Object o1, Object o2) {
-		String title1 = ((Book) o1).getSearchableField(label);
-		String title2 = ((Book) o2).getSearchableField(label);
-		int comp = title1.compareTo(title2);
-		return comp;
-	}
 }
