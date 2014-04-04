@@ -1,9 +1,0 @@
-package question4;
-
-public class ThreeFloats {
-
-	public static void main(String[] args) {
-		
-	}
-	
-}

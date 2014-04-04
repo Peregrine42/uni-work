@@ -1,9 +1,0 @@
-INDEX VERSION 1.126+C:\Users\S169108\Documents\workspace-sts-3.4.0.RELEASE\java-workspace\.metadata\.plugins\org.eclipse.jdt.core
-983533656.index
-1091995821.index
-4021981795.index
-964403357.index
-937275945.index
-107855106.index
-2229657886.index
-4048000780.index
