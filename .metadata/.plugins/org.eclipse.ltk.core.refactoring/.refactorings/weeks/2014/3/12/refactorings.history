@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move package &apos;ops.exprs&apos; to &apos;w2-operators-and-expressions/src&apos;&#x0D;&#x0A;- Original project: &apos;weeks&apos;&#x0D;&#x0A;- Destination element: &apos;w2-operators-and-expressions/src&apos;&#x0D;&#x0A;- Original element: &apos;weeks/src/ops.exprs&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move package" destination="=w2-operators-and-expressions/src" element1="/src&lt;ops.exprs" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1395416944851" version="1.0"/>
-</session>
