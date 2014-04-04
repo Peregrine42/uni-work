@@ -6,16 +6,16 @@ import java.util.Comparator;
 
 class Library {
 	
-	public ArrayList<Book> books;
+	public ArrayList<Media> media;
 	
 	Library() {
-		this.books = new ArrayList<Book>();
+		this.media = new ArrayList<Media>();
 	}
 	
-	public ArrayList<Book> getByLabel(String target, String label) {
-		ArrayList<Book> result = new ArrayList<Book>();
-		for (int i = 0; i < books.size(); i++) {
-			Book book = books.get(i);
+	public ArrayList<Media> getByLabel(String target, String label) {
+		ArrayList<Media> result = new ArrayList<Media>();
+		for (int i = 0; i < media.size(); i++) {
+			Media book = media.get(i);
 			if (book.getSearchableField(label).contains(target)) {
 				result.add(book);
 			}
@@ -26,33 +26,29 @@ class Library {
 	public String toString() {
 		String result = "";
 		
-		for (int i = 0; i < books.size(); i++) {
-			Book book = books.get(i);
+		for (int i = 0; i < media.size(); i++) {
+			Media book = media.get(i);
 			result += book.toString() + "\n";
 		}
 		
 		return result;
 	}
 	
-	public void sortByAuthor() {
-		Collections.sort(books, new labelComparator("author"));
-	}
-	
 	public void sortByFormat() {
-		Collections.sort(books, new labelComparator("format"));
+		Collections.sort(media, new labelComparator("format"));
 	}
 	
 	public void sortByTitle() {
-		Collections.sort(books, new labelComparator("title"));
+		Collections.sort(media, new labelComparator("title"));
 	}
 	
 	public void sortByPrice() {
-		Collections.sort(books, new Comparator<Object>() {
+		Collections.sort(media, new Comparator<Object>() {
 
 			@Override
 			public int compare(Object o1, Object o2) {
-				double price1 = ((Book) o1).price;
-				double price2 = ((Book) o2).price;
+				double price1 = ((Media) o1).getPrice();
+				double price2 = ((Media) o2).getPrice();
 				int comp = Double.compare(price1, price2);
 				return comp;
 			}
@@ -60,7 +56,7 @@ class Library {
 		});
 	}
 	
-	public static String resultToString(ArrayList<Book> a) {
+	public static String resultToString(ArrayList<Media> a) {
 		String result = "";
 		for (int i = 0; i < a.size(); i++) {
 			Object o = a.get(i);

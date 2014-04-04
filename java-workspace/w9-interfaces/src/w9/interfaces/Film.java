@@ -1,18 +1,18 @@
 package w9.interfaces;
 
-class Book implements Media {
-	
-	public String author;
+public class Film implements Media {
+
+	public String director;
 	public String title;
 	public double price;
 	public String format;
 	
-	Book(String author,
+	Film(String author,
 		 String title,
 		 double price,
 		 String format) {
 		
-		this.author = author;
+		this.director = author;
 		this.title = title;
 		this.price = price;
 		this.format = format;
@@ -20,7 +20,7 @@ class Book implements Media {
 	}
 	
 	public String toString() {
-		return title + " by " + author + " (" + format + ", priced: " + price + ")";
+		return title + " by " + director + " (" + format + ", priced: " + price + ")";
 	}
 	
 	public double getPrice() {
@@ -28,8 +28,8 @@ class Book implements Media {
 	}
 	
 	public String getSearchableField(String label) {
-		if (label.equals("author")) {
-			return this.author;
+		if (label.equals("director")) {
+			return this.director;
 		} else {
 			if (label.equals("format")) {
 				return this.format;

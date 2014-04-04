@@ -5,14 +5,37 @@ import java.util.Scanner;
 public class Week9 {
 
 	public static void main(String[] args) {
-		two();
+		twoWithFilms();
+	}
+	
+	public static void twoWithFilms() {
+		FilmLibrary l = new FilmLibrary();
+		l.media.add(new Film("Bloggs", "Alpha Title", 3.99, "dvd"));
+		l.media.add(new Film("Catherine", "K Title", 1.99, "stream"));
+		l.media.add(new Film("Gerald", "B Title", 4.99, "dvd"));
+		
+		l.sortByDirector();
+		System.out.println("Sorted by Director:");
+		System.out.println(l);
+		
+		l.sortByTitle();
+		System.out.println("Sorted by Title:");
+		System.out.println(l);
+		
+		l.sortByPrice();
+		System.out.println("Sorted by Price:");
+		System.out.println(l);
+		
+		System.out.println("All hardbacks:");
+		System.out.println(Library.resultToString(l.getByLabel("dvd", "format")));
+	
 	}
 	
 	public static void two() {
-		Library l = new Library();
-		l.books.add(new Book("Bloggs", "Alpha Title", 3.99, "paperback"));
-		l.books.add(new Book("Catherine", "K Title", 1.99, "hardback"));
-		l.books.add(new Book("Gerald", "B Title", 4.99, "hardback"));
+		BookLibrary l = new BookLibrary();
+		l.media.add(new Book("Bloggs", "Alpha Title", 3.99, "paperback"));
+		l.media.add(new Book("Catherine", "K Title", 1.99, "hardback"));
+		l.media.add(new Book("Gerald", "B Title", 4.99, "hardback"));
 		
 		l.sortByAuthor();
 		System.out.println("Sorted by Author:");

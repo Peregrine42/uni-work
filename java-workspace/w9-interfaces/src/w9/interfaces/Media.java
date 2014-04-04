@@ -1,5 +1,11 @@
 package w9.interfaces;
 
-public class Media {
+public interface Media {
 
+	public double getPrice();
+	
+	public String toString();
+	
+	public String getSearchableField(String label);
+	
 }
