@@ -42,24 +42,34 @@ public class EncrypterTest {
 		e   = 761;
 		assertEquals(7061, enc.getD(e, phi));
 	}
+	
+	@Test
+	public void isPrimeTest() {
+		assertEquals(true, isPrime(1));
+		assertEquals(true, isPrime(2));
+		assertEquals(true, isPrime(3));
+		assertEquals(true, isPrime(5));
+		assertEquals(true, isPrime(227));
+		assertEquals(false, isPrime(228));
+	}
 
 	public boolean isPrime(int number) {
+		/**
+		 * Checks whether a number is prime or not. For a given number x it 
+		 * steps through each number up to half of x to see if that number 
+		 * goes into x equally. 
+		 * Adapted from:
+		 * http://stackoverflow.com/questions/19514680/prime-number-test-java
+		 */
 		int j = 2;
-		int result = 0;
-		while (j <= number / 2)
-		{
-			if (number % j == 0)
-			{
-				result = 1;
+		int halfNumber = number / 2;
+		while (j <= halfNumber) {
+			if (number % j == 0) {
+				return false;
 			}
 			j++;
 		}
-		
-		if (result == 1) {
-			return false;
-		} else {
-			return true;
-		}
+		return true;
 	}
 
 }
