@@ -1,4 +1,5 @@
 package assessment.rsa;
+import java.math.BigInteger;
 
 public class Encrypter {
 
@@ -31,6 +32,10 @@ public class Encrypter {
 		int t = s1 - (a / b) * t1;
 		int[] result = { d, s, t };
 		return result;
+	}
+	
+	public BigInteger stringToUnicodeNumbers(String string) {
+		return BigInteger.ZERO;
 	}
 	
 	public int getD(int e, int phi) {
@@ -75,15 +80,19 @@ public class Encrypter {
 	}
 	
 	public int gcd(int a, int b) {
+		/**
+		 * Returns the greatest common divisor
+		 * between two numbers a and b.
+		 * Uses a recursive version of the
+		 * Euclidean Algorithm.
+		 */
+		
 		if (b == 0) {
 			return a;
 		} else {
 			return gcd(b, a % b);
 		}
 	}
-	
-	
-	
 	
 	public String getFoo() {
 		return "foo";
