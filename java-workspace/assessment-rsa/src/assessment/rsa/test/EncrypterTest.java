@@ -11,15 +11,9 @@ import assessment.rsa.Encrypter;
 public class EncrypterTest {
 
 	@Test
-	public void test() {
-		Encrypter e = new Encrypter();
-		assertEquals("foo", e.getFoo());
-	}
-
-	@Test
 	public void getETest() {
 		Encrypter e = new Encrypter();
-		assertEquals(true, isPrime(e.getE()));
+		assertTrue(isPrime(e.getE()));
 	}
 
 	@Test
@@ -63,11 +57,11 @@ public class EncrypterTest {
 	
 	@Test
 	public void isPrimeTest() {
-		assertEquals(true, isPrime(1));
-		assertEquals(true, isPrime(2));
-		assertEquals(true, isPrime(3));
-		assertEquals(true, isPrime(5));
-		assertEquals(true, isPrime(227));
+		assertEquals(true,  isPrime(1));
+		assertEquals(true,  isPrime(2));
+		assertEquals(true,  isPrime(3));
+		assertEquals(true,  isPrime(5));
+		assertEquals(true,  isPrime(227));
 		assertEquals(false, isPrime(228));
 	}
 

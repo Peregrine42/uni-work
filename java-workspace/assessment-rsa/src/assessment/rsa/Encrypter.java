@@ -35,7 +35,20 @@ public class Encrypter {
 	}
 	
 	public BigInteger stringToUnicodeNumbers(String string) {
-		return BigInteger.ZERO;
+		/**
+		 * Unicode conversion adapted from:
+		 * http://stackoverflow.com/questions/2220366/get-unicode-value-of-a-character
+		 */
+		
+		String asUnicode = "";
+		for (int i = 0; i < string.length(); i++) {
+			char c = string.charAt(i);
+			asUnicode += Integer.toHexString(c | 0x10000).substring(1);
+		}
+		
+		BigInteger result = new BigInteger(asUnicode);
+		
+		return result;
 	}
 	
 	public int getD(int e, int phi) {
