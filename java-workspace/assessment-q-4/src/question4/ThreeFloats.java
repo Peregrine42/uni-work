@@ -6,7 +6,7 @@ public class ThreeFloats {
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-
+		
 		String floats_as_string = "";
 		while (floats_as_string.length() < 1) {
 			System.out.println("Please enter three numbers seperated by spaces:");
