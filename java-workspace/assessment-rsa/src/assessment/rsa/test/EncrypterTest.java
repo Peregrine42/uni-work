@@ -27,7 +27,7 @@ public class EncrypterTest {
 	}
 	
 	@Test
-	public void modularInverseTest() {
+	public void getDTest() {
 		Encrypter enc = new Encrypter();
 		
 		int phi = 60;
@@ -44,15 +44,29 @@ public class EncrypterTest {
 		Encrypter enc = new Encrypter();
 		
 		// Unicode
-		// A: 0041
-		// B: 0042
-		// C: 0043
+		// A: 0000065
+		// B: 0000066
+		// C: 0000067
 		
-		BigInteger target1 = new BigInteger("00410042");
+		BigInteger target1 = new BigInteger("650000066");
 		assertTrue(target1.equals(enc.stringToUnicodeNumbers("AB")));
 		
-		BigInteger target2 = new BigInteger("004300410042");
+		BigInteger target2 = new BigInteger("6700000650000066");
 		assertTrue(target2.equals(enc.stringToUnicodeNumbers("CAB")));
+		
+		BigInteger target3 = new BigInteger("640001506");
+		assertTrue(target3.equals(enc.stringToUnicodeNumbers("@ע")));
+	}
+	
+	@Test
+	public void numberToStringTest() {
+		Encrypter enc = new Encrypter();
+		
+		BigInteger input1 = new BigInteger("650000066");
+		assertEquals("AB", enc.numberToString(input1));
+		
+		BigInteger input2 = new BigInteger("6400015060002569");
+		assertEquals("@עਉ", enc.numberToString(input2));
 	}
 	
 	@Test

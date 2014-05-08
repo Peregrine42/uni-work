@@ -13,67 +13,100 @@ public class Encrypter {
 		 * A recursive function that, given a and b,
 		 * calculates d, s and t from the equation:
 		 * ax + by = g = gcd(a, b)
-		 * Adapted from:
+		 * Adapted from lecture powerpoint and:
 		 * http://en.wikibooks.org/wiki/Algorithm_Implementation/Mathematics/Extended_Euclidean_algorithm
 		 */
 		
-		if (b == 0) {
-			int[] result = { a, 1, 0 };
+		if (a == 0) {
+			int[] result = { b, 0, 1 };
 			return result;
 		}
 		
-		int[] result1 = extendendEuclid(b, a % b);
-		int d1 = result1[0];
-		int s1 = result1[1];
-		int t1 = result1[2];
+		int[] result1 = extendendEuclid(b % a, a);
+		int g = result1[0];
+		int y = result1[1];
+		int x = result1[2];
 		
-		int d = d1;
-		int s = t1;
-		int t = s1 - (a / b) * t1;
-		int[] result = { d, s, t };
+		int[] result = { g, x - ((b / a) * y), y };
 		return result;
 	}
 	
-	public BigInteger stringToUnicodeNumbers(String string) {
-		/**
-		 * Unicode conversion adapted from:
-		 * http://stackoverflow.com/questions/2220366/get-unicode-value-of-a-character
-		 */
+	public String numberToString(BigInteger b) {
+		int characterLength = 7;
 		
+		// add zero padding
+		String message = b.toString();
+		int remainder = characterLength - (message.length() % characterLength);
+		message = padWithZeros(message, remainder);
+		
+		// split into sets of numbers
+		int amountOfCharacters = message.length()/characterLength;
+		String[] parts = new String[amountOfCharacters];
+		for (int i = 0; i < amountOfCharacters; i++) {
+			parts[i] = message.substring(i*characterLength, (i*characterLength) + characterLength);
+		}
+		
+		// convert to unicode
+		String converted_message = "";
+		for (int i = 0; i < parts.length; i++) {
+			
+			// treat the set as a decimal number and convert
+			// to an integer
+			int cc = Integer.parseInt(parts[i]);
+			
+			// convert that integer value to a char, 
+			// completing the conversion
+			char ccc = (char) cc;
+			converted_message = converted_message + String.valueOf(ccc);
+		}
+		
+		return converted_message;
+	}
+	
+	public BigInteger stringToUnicodeNumbers(String string) {
 		String asUnicode = "";
 		for (int i = 0; i < string.length(); i++) {
 			char c = string.charAt(i);
-			asUnicode += Integer.toHexString(c | 0x10000).substring(1);
+			String asNumber = Integer.toString((int) c);
+			
+			int remainder = 7 - asNumber.length();
+			asNumber = padWithZeros(asNumber, remainder);
+			
+			asUnicode += asNumber;
 		}
 		
 		BigInteger result = new BigInteger(asUnicode);
-		
 		return result;
+	}
+	
+	public String padWithZeros(String input, int remainder) {
+		for (int j = 0; j < remainder; j++) {
+			input = "0" + input;
+		}
+		return input;
 	}
 	
 	public int getD(int e, int phi) {
 		/**
-		 * Uses extendedEuclid to find r, b and a,
-		 * Then uses b to select the right calculation 
-		 * to find d, the private multiplicative 
-		 * inverse of a.
+		 * Uses extendedEuclid to find r, a and b,
+		 * Then uses a to select the right calculation 
+		 * to find d.
 		 */
 		
 		int[] result = extendendEuclid(e, phi);
 //		int r = result[0];
-		int b = result[1];
-//		int a = result[2];
+		int a = result[1];
+//		int b = result[2];
 		
-		if (b < 0) {
-			int d = b + phi;
-			return d;
-		} else if (b >= phi) {
-			int d = b % phi;
-			return d;
+		int d = 0;
+		if (a < 0) {
+			d = a + phi;
+		} else if (a >= phi) {
+			d = a % phi;
 		} else {
-			int d = b;
-			return d;
+			d = a;;
 		}
+		return d;
 	}
 	
 	public int getE() {
@@ -107,63 +140,63 @@ public class Encrypter {
 		}
 	}
 	
-	public String getFoo() {
-		return "foo";
-	}
-	
-	int[] extEuc(int a, int b) {
-		if (b == 0) {
-			int[] result = { a, 1, 0 };
-			return result;
-		} else {
-			int[] resultPrime = extEuc(b, a % b);
-			
-			int dPrime = resultPrime[0];
-			int xPrime = resultPrime[1];
-			int yPrime = resultPrime[2];
-			int[] result = { dPrime, yPrime, (int) ((int) xPrime - (Math.floor(a/b)*yPrime)) };
-			return result;
-		}
-	}
-	
-	int[] extEucIter(int a, int b) {
-		int prevx = 1;
-		int x = 0;
-		
-		int prevy = 0;
-		int y = 1;
-		
-		while (b > 0) {
-			double q = ((double) a) / ((double) b);
-			int q_as_int = (int) q;
-			
-			int oldx = x;
-			x = prevx - (q_as_int * x);
-			prevx = oldx;
-			
-			int oldy = y;
-			y = prevy - (q_as_int * y);
-			prevy = oldy;
-			
-			b = a % b;
-			a = b;
-		}
-		int[] result = { a, prevx, prevy };
-		return result;
-	}
-	
-	public int[] egcd(int a, int b) {
-		if (a == 0) {
-			int[] result = { b, 0, 1 };
-			return result;
-		} else {
-			int[] result = egcd(b % a, a);
-			int g = result[0];
-			int y = result[1];
-			int x = result[2];
-			
-			int[] answer = { g, x - (b/a)*y, y };
-			return answer;
-		}
-	}
+//	public String getFoo() {
+//		return "foo";
+//	}
+//	
+//	int[] extEuc(int a, int b) {
+//		if (b == 0) {
+//			int[] result = { a, 1, 0 };
+//			return result;
+//		} else {
+//			int[] resultPrime = extEuc(b, a % b);
+//			
+//			int dPrime = resultPrime[0];
+//			int xPrime = resultPrime[1];
+//			int yPrime = resultPrime[2];
+//			int[] result = { dPrime, yPrime, (int) ((int) xPrime - (Math.floor(a/b)*yPrime)) };
+//			return result;
+//		}
+//	}
+//	
+//	int[] extEucIter(int a, int b) {
+//		int prevx = 1;
+//		int x = 0;
+//		
+//		int prevy = 0;
+//		int y = 1;
+//		
+//		while (b > 0) {
+//			double q = ((double) a) / ((double) b);
+//			int q_as_int = (int) q;
+//			
+//			int oldx = x;
+//			x = prevx - (q_as_int * x);
+//			prevx = oldx;
+//			
+//			int oldy = y;
+//			y = prevy - (q_as_int * y);
+//			prevy = oldy;
+//			
+//			b = a % b;
+//			a = b;
+//		}
+//		int[] result = { a, prevx, prevy };
+//		return result;
+//	}
+//	
+//	public int[] egcd(int a, int b) {
+//		if (a == 0) {
+//			int[] result = { b, 0, 1 };
+//			return result;
+//		} else {
+//			int[] result = egcd(b % a, a);
+//			int g = result[0];
+//			int y = result[1];
+//			int x = result[2];
+//			
+//			int[] answer = { g, x - (b/a)*y, y };
+//			return answer;
+//		}
+//	}
 }
