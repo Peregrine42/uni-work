@@ -1,8 +1,5 @@
 package assessment.q18;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Cipher {
 
 	String text;
@@ -13,17 +10,60 @@ public class Cipher {
 	
 	public String decrypt(char statisticallyMostCommonLetter) {
 		char c;
-		
-		c = mostCommonLetter();
-		
+		c = mostCommonChar();
 		int offset = findOffset(statisticallyMostCommonLetter, c);
 		return translate(offset);
 	}
 	
-	public char mostCommonLetter() {
-		HashMap<Character, Integer> histogram = buildHistogram(text);
-		char maxChar = getMostCommonLetter(histogram);
-		return maxChar;
+	public char mostCommonChar() {
+		int[] histogram = buildHistogram(text);
+		int mostCommonIndex = findIndexOfMostCommon(histogram);
+		char result = (char) (mostCommonIndex + (int) 'A');
+		return result;
+	}
+	
+	private int[] buildHistogram(String text) {
+		// produces a histogram of letter frequencies within the text
+		// the histogram is an array of frequencies, 
+		// with 'A''s frequency at position 0
+		
+		int[] histogram = new int[26];
+		
+		for (int i = 0; i < text.length(); i++) {
+			char character = text.charAt(i);
+			
+			// don't count spaces
+			if (character == ' ') {
+				continue;
+			}
+			
+			int value = (int) character;
+			
+			// convert character code to zero-based array position
+			value -= (int) 'A';
+			histogram[value] += 1;
+		}
+		
+		return histogram;
+	}
+	
+	private int findIndexOfMostCommon(int[] histogram) {
+		// gets the key with the highest value from the histogram
+		// assumes a non-empty histogram
+		
+		int maxValue = 0;
+		int maxPosition = -1;	// error case - this will always be overwritten
+								//              unless given an empty histogram
+		for (int i = 0; i < histogram.length; i++) {
+		    int value = histogram[i];
+
+		    if (value > maxValue) {
+		    	maxValue = value;
+		    	maxPosition = i;
+		    }
+		}
+		
+		return maxPosition;
 	}
 	
 	public static int findOffset(char letter, char letter2) {
@@ -51,7 +91,6 @@ public class Cipher {
 			
 			encoded = encoded + c;
 		}
-		
 		return encoded;
 	}
 	
@@ -81,45 +120,51 @@ public class Cipher {
 		return c;
 	}
 	
-	private HashMap<Character, Integer> buildHistogram(String text) {
-		// produces a hash with the following form:
-		//			histogram = { 'A': 5,
-		//						  'B': 2,
-		//					   letter: frequency, etc }
-		
-		int length = text.length();
-		HashMap<Character, Integer> histogram = new HashMap<Character, Integer>();
-		for (int i = 0; i < length; i++) {
-			char c = text.charAt(i);
-			if (histogram.containsKey(c)) {
-				int currentTotal = histogram.get(c);
-				currentTotal += 1;
-				histogram.put(c, currentTotal);
-			} else {
-				histogram.put(c, 1);
-			}
-		}
-		
-		return histogram;
-	}
+//	private HashMap<Character, Integer> buildHistogram(String text) {
+//		// produces a hash with the following form:
+//		//			histogram = { 'A': 5,
+//		//						  'B': 2,
+//		//					   letter: frequency, etc }
+//		
+//		int length = text.length();
+//		HashMap<Character, Integer> histogram = new HashMap<Character, Integer>();
+//		for (int i = 0; i < length; i++) {
+//			char c = text.charAt(i);
+//			if (histogram.containsKey(c)) {
+//				int currentTotal = histogram.get(c);
+//				currentTotal += 1;
+//				histogram.put(c, currentTotal);
+//			} else {
+//				histogram.put(c, 1);
+//			}
+//		}
+//		
+//		return histogram;
+//	}
 	
-	private char getMostCommonLetter(Map<Character, Integer> histogram) {
-		// gets the key with the highest value from the histogram
-		// assumes a non-empty histogram
-		
-		int maxValue = 0;
-		char maxChar = '0';		// error case - this will always be overwritten
-								//              unless given an empty histogram
-		for (Map.Entry<Character, Integer> entry : histogram.entrySet()) {
-		    char key = entry.getKey();
-		    int value = entry.getValue();
-
-		    if (value > maxValue) {
-		    	maxValue = value;
-		    	maxChar = key;
-		    }
-		}
-		
-		return maxChar;
-	}
+//	private char getMostCommonLetter(Map<Character, Integer> histogram) {
+//		// gets the key with the highest value from the histogram
+//		// assumes a non-empty histogram
+//		
+//		int maxValue = 0;
+//		char maxChar = '0';		// error case - this will always be overwritten
+//								//              unless given an empty histogram
+//		for (Map.Entry<Character, Integer> entry : histogram.entrySet()) {
+//		    char key = entry.getKey();
+//		    int value = entry.getValue();
+//
+//		    if (value > maxValue) {
+//		    	maxValue = value;
+//		    	maxChar = key;
+//		    }
+//		}
+//		
+//		return maxChar;
+//	}
+	
+//	public char mostCommonLetter() {
+//		HashMap<Character, Integer> histogram = buildHistogram(text);
+//		char maxChar = getMostCommonLetter(histogram);
+//		return maxChar;
+//	}
 }

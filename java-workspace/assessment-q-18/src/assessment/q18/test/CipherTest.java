@@ -9,10 +9,10 @@ public class CipherTest {
 	@Test
 	public void mostCommonLetterTest() {
 		Cipher c = new Cipher("AEBECED");
-		assertEquals('E', c.mostCommonLetter());
+		assertEquals('E', c.mostCommonChar());
 		
 		c = new Cipher("AAB");
-		assertEquals('A', c.mostCommonLetter());
+		assertEquals('A', c.mostCommonChar());
 	}
 	
 	@Test
@@ -49,6 +49,18 @@ public class CipherTest {
 		
 		c = new Cipher("ABC");
 		assertEquals("EFG", c.decrypt('E'));
+	}
+	
+	@Test
+	public void integrationSpacesTest() {
+		Cipher c = new Cipher("FFFFF BCDEG        ");
+		assertEquals("EEEEE ABCDF        ", c.decrypt('E'));
+	}
+	
+	@Test
+	public void integrationEmptyStringTest() {
+		Cipher c = new Cipher("");
+		assertEquals("", c.decrypt('E'));
 	}
 }
 
