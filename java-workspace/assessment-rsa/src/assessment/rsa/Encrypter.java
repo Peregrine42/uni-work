@@ -1,5 +1,4 @@
 package assessment.rsa;
-import static org.junit.Assert.assertEquals;
 
 import java.math.BigInteger;
 import java.util.Random;
@@ -11,39 +10,75 @@ public class Encrypter {
 
 	}
 	
-	public encryptedMessagePair encrypt(String M) {
-		BigInteger e = getE();
+	// value object
+	public class Message {
+		public BigInteger p;
+		public BigInteger q;
+		public BigInteger e;
+		public BigInteger phi;
+		public BigInteger n;
+		public BigInteger d;
 		
-		BigInteger[] pickedNumbers = pickPQandPhi();
-		BigInteger p = pickedNumbers[0];
-		BigInteger q = pickedNumbers[1];
-		BigInteger phi = pickedNumbers[2];
+		public String message;
 		
-		while (BigInteger.ONE.compareTo(gcd(phi, e)) != 0) {
-			pickedNumbers = pickPQandPhi();
-			p = pickedNumbers[0];
-			q = pickedNumbers[1];
-			phi = pickedNumbers[2];
+		Message(String m) {
+			message = m;
 		}
+	}
+	
+	// move to message class?
+	private Message pickPQandPhi(Message m) {
+		m.p = BigInteger.probablePrime(64, new Random());
+		m.q = BigInteger.probablePrime(64, new Random());
+		m.phi = (m.p.subtract(BigInteger.ONE)).multiply((m.q.subtract(BigInteger.ONE)));
+
+		return m;
+	}
+	
+	// move to message class?
+	private Message makeEandPhiCoprime(Message m) {
+		m.e = getE();
+		pickPQandPhi(m);
+		while (BigInteger.ONE.compareTo(gcd(m.phi, m.e)) != 0) {
+			pickPQandPhi(m);
+		}
+		return m;
+	}
+	
+	// move to message class?
+	public encryptedMessagePair encrypt(String M) {
+		Message m = makeEandPhiCoprime(new Message(M));
 		
-		BigInteger n = p.multiply(q);
-		BigInteger d = getD(e, phi);
+		m.n = m.p.multiply(m.q);
+		m.d = getD(m.e, m.phi);
 		
 		String[] M_parts = splitMessage(M);
+		BigInteger[] encrypted_message_parts = encryptParts(M_parts, m);
+		String result = joinBigInts(encrypted_message_parts);
 		
+		return new encryptedMessagePair(result, m.d, m.n);
+	}
+	
+	// move to message class?
+	private String joinBigInts(BigInteger[] bigInts) {
+		String result = "";
+		for (int j = 0; j < bigInts.length; j++) {
+			result += bigInts[j].toString() + " ";
+		}
+		
+		return result;
+	}
+	
+	// move to message class?
+	private BigInteger[] encryptParts(String[] M_parts, Message m) {
 		BigInteger[] encrypted_message_parts = new BigInteger[M_parts.length];
 		for (int i = 0; i < encrypted_message_parts.length; i++) {
 			 BigInteger asUnicodeNumbers = stringToUnicodeNumbers(M_parts[i]);
-			 BigInteger C = asUnicodeNumbers.modPow(e, n);
+			 BigInteger C = asUnicodeNumbers.modPow(m.e, m.n);
 			 encrypted_message_parts[i] = C;
 		}
 		
-		String result = "";
-		for (int j = 0; j < encrypted_message_parts.length; j++) {
-			result += encrypted_message_parts[j].toString() + " ";
-		}
-		
-		return new encryptedMessagePair(result, d, n);
+		return encrypted_message_parts;
 	}
 	
 	public String decrypt(String C, BigInteger d, BigInteger n) {
@@ -123,15 +158,6 @@ public class Encrypter {
 			result[arrayCounter] = buffer;
 		}
 		
-		return result;
-	}
-	
-	private BigInteger[] pickPQandPhi() {
-		BigInteger p = BigInteger.probablePrime(64, new Random());
-		BigInteger q = BigInteger.probablePrime(64, new Random());
-		BigInteger phi = (p.subtract(BigInteger.ONE)).multiply((q.subtract(BigInteger.ONE)));
-		
-		BigInteger[] result = { p, q, phi };
 		return result;
 	}
 	

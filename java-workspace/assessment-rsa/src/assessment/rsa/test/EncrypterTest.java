@@ -39,7 +39,7 @@ public class EncrypterTest {
 	public void encryptIntegrationTest() {
 		Encrypter enc = new Encrypter();
 		
-		String M     = "hi there how are you today";
+		String M     = "hi there how are you today!";
 		encryptedMessagePair mp = enc.encrypt(M);
 		String C     = mp.message;
 		BigInteger d = mp.d;
@@ -73,12 +73,6 @@ public class EncrypterTest {
 		}
 		return true;
 	}
-	
-//	@Test
-//	public void getETest() {
-//		Encrypter e = new Encrypter();
-//		assertTrue(isPrime(e.getE()));
-//	}
 
 	@Test
 	public void gcdTest() {
@@ -132,16 +126,6 @@ public class EncrypterTest {
 		BigInteger input2 = new BigInteger("64002150016200224");
 		assertEquals("@×¢à", enc.numberToString(input2));
 	}
-	
-//	@Test
-//	public void isPrimeTest() {
-//		assertEquals(true,  isPrime(new BigInteger("1")));
-//		assertEquals(true,  isPrime(new BigInteger("2")));
-//		assertEquals(true,  isPrime(new BigInteger("3")));
-//		assertEquals(true,  isPrime(new BigInteger("5")));
-//		assertEquals(true,  isPrime(new BigInteger("227")));
-//		assertEquals(false, isPrime(new BigInteger("228")));
-//	}
 
 	public boolean isPrime(BigInteger number) {
 		/**
