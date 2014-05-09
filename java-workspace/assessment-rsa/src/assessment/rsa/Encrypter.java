@@ -1,11 +1,138 @@
 package assessment.rsa;
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigInteger;
+import java.util.Random;
 
 public class Encrypter {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public encryptedMessagePair encrypt(String M) {
+		BigInteger e = getE();
+		
+		BigInteger[] pickedNumbers = pickPQandPhi();
+		BigInteger p = pickedNumbers[0];
+		BigInteger q = pickedNumbers[1];
+		BigInteger phi = pickedNumbers[2];
+		
+		while (BigInteger.ONE.compareTo(gcd(phi, e)) != 0) {
+			pickedNumbers = pickPQandPhi();
+			p = pickedNumbers[0];
+			q = pickedNumbers[1];
+			phi = pickedNumbers[2];
+		}
+		
+		BigInteger n = p.multiply(q);
+		BigInteger d = getD(e, phi);
+		
+		String[] M_parts = splitMessage(M);
+		
+		BigInteger[] encrypted_message_parts = new BigInteger[M_parts.length];
+		for (int i = 0; i < encrypted_message_parts.length; i++) {
+			 BigInteger asUnicodeNumbers = stringToUnicodeNumbers(M_parts[i]);
+			 BigInteger C = asUnicodeNumbers.modPow(e, n);
+			 encrypted_message_parts[i] = C;
+		}
+		
+		String result = "";
+		for (int j = 0; j < encrypted_message_parts.length; j++) {
+			result += encrypted_message_parts[j].toString() + " ";
+		}
+		
+		return new encryptedMessagePair(result, d, n);
+	}
+	
+	public String decrypt(String C, BigInteger d, BigInteger n) {
+		// split on spaces
+		String[] ciphered_parts = C.split(" ");
+		
+		// convert to big ints
+		BigInteger[] big_ints = partsToBigInts(ciphered_parts);
+		
+		// decrypt to strings
+		BigInteger[] decrypted = decryptArray(big_ints, d, n);
+		
+		// join together
+		String result = "";
+		for (int i = 0; i < decrypted.length; i++) {
+			result += numberToString(decrypted[i]);
+		}
+		
+		return result;
+		
+	}
+	
+	private BigInteger[] decryptArray(BigInteger[] big_ints, BigInteger d, BigInteger n) {
+		BigInteger[] decrypted = new BigInteger[big_ints.length];
+		for (int i = 0; i < decrypted.length; i++) {
+			decrypted[i] = big_ints[i].modPow(d, n);
+		}
+		
+		return decrypted;
+	}
+	
+	private BigInteger[] partsToBigInts(String[] s) {
+		BigInteger[] result = new BigInteger[s.length];
+		
+		for (int i = 0; i < result.length; i++) {
+			result[i] = new BigInteger(s[i]);
+		}
+		
+		return result;
+	}
+	
+	public class encryptedMessagePair {
+		public String message;
+		public BigInteger d;
+		public BigInteger n;
+		
+		encryptedMessagePair(String message, BigInteger d, BigInteger n) {
+			this.message = message;
+			this.d = d;
+			this.n = n;
+		}
+	}
+	
+	public String[] splitMessage(String M) {
+		int chunkSize = 5;
+		
+		int length = (M.length()/chunkSize) + 1;
+		if (M.isEmpty()) {
+			length = 0;
+		}
+		
+		String[] result = new String[length];
+		
+		String buffer = "";
+		int arrayCounter = 0;
+		for (int i = 0; i < M.length(); i++) {
+			buffer += M.charAt(i);
+			
+			if (buffer.length() == chunkSize) {
+				result[arrayCounter] = buffer;
+				arrayCounter += 1;
+				buffer = "";
+			}
+		}
+		
+		if (!buffer.equals("")) {
+			result[arrayCounter] = buffer;
+		}
+		
+		return result;
+	}
+	
+	private BigInteger[] pickPQandPhi() {
+		BigInteger p = BigInteger.probablePrime(64, new Random());
+		BigInteger q = BigInteger.probablePrime(64, new Random());
+		BigInteger phi = (p.subtract(BigInteger.ONE)).multiply((q.subtract(BigInteger.ONE)));
+		
+		BigInteger[] result = { p, q, phi };
+		return result;
 	}
 	
 	public BigInteger[] extendendEuclid(BigInteger a, BigInteger b) {

@@ -8,6 +8,7 @@ import java.util.Random;
 import org.junit.Test;
 
 import assessment.rsa.Encrypter;
+import assessment.rsa.Encrypter.encryptedMessagePair;
 
 public class EncrypterTest {
 
@@ -15,23 +16,62 @@ public class EncrypterTest {
 	public void encryptTest() {
 		Encrypter enc = new Encrypter();
 		
-		BigInteger p = BigInteger.probablePrime(1024, new Random());
-		BigInteger q = BigInteger.probablePrime(1024, new Random());
+		BigInteger p = BigInteger.probablePrime(64, new Random());
+		BigInteger q = BigInteger.probablePrime(64, new Random());
 		
 		BigInteger n = p.multiply(q);
 		BigInteger phi = (p.subtract(BigInteger.ONE)).multiply((q.subtract(BigInteger.ONE)));
 		BigInteger e = enc.getE();
 		
-		assertEquals(new BigInteger("1"), enc.gcd(phi, e));
+		assertEquals(BigInteger.ONE, enc.gcd(phi, e));
 		
 		BigInteger d = enc.getD(e, phi);
 
-		BigInteger M = enc.stringToUnicodeNumbers("hello there");
+		BigInteger M = enc.stringToUnicodeNumbers("hello");
 		BigInteger C = M.modPow(e, n);
 		BigInteger M_dec = C.modPow(d, n);
 
 		assertTrue(M.equals(M_dec));
 
+	}
+	
+	@Test
+	public void encryptIntegrationTest() {
+		Encrypter enc = new Encrypter();
+		
+		String M     = "hi there how are you today";
+		encryptedMessagePair mp = enc.encrypt(M);
+		String C     = mp.message;
+		BigInteger d = mp.d;
+		BigInteger n = mp.n;
+		String M_dec = enc.decrypt(C, d, n);
+		
+		assertTrue(M.equals(M_dec));
+	}
+	
+	@Test
+	public void splitMessageTest() {
+		Encrypter enc = new Encrypter();
+		
+		splitMessageTestRoutine(enc, "abcdefghi", new String[] {"abcde", "fghi"});
+		splitMessageTestRoutine(enc, "abcdefghij", new String[] {"abcde", "fghij"});
+		splitMessageTestRoutine(enc, "a", new String[] {"a"});
+		splitMessageTestRoutine(enc, "", new String[] {});
+		
+	}
+	
+	public void splitMessageTestRoutine(Encrypter enc, String message, String[] expected) {
+		String[] result = enc.splitMessage(message);
+		assertTrue(compareArrays(expected, result));
+	}
+	
+	public Boolean compareArrays(String[] a1, String[] a2) {
+		for (int i = 0; i < a1.length; i++) {
+			if (!a1[i].equals(a2[i])) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 //	@Test
