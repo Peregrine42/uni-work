@@ -8,7 +8,7 @@ public class Encrypter {
 
 	}
 	
-	public int[] extendendEuclid(int a, int b) {
+	public BigInteger[] extendendEuclid(BigInteger a, BigInteger b) {
 		/**
 		 * A recursive function that, given a and b,
 		 * calculates d, s and t from the equation:
@@ -17,22 +17,22 @@ public class Encrypter {
 		 * http://en.wikibooks.org/wiki/Algorithm_Implementation/Mathematics/Extended_Euclidean_algorithm
 		 */
 		
-		if (a == 0) {
-			int[] result = { b, 0, 1 };
+		if (a.equals(BigInteger.ZERO)) {
+			BigInteger[] result = { b, BigInteger.ZERO, BigInteger.ONE };
 			return result;
 		}
 		
-		int[] result1 = extendendEuclid(b % a, a);
-		int g = result1[0];
-		int y = result1[1];
-		int x = result1[2];
+		BigInteger[] result1 = extendendEuclid(b.mod(a), a);
+		BigInteger g = result1[0];
+		BigInteger y = result1[1];
+		BigInteger x = result1[2];
 		
-		int[] result = { g, x - ((b / a) * y), y };
+		BigInteger[] result = { g, x.subtract(b.divide(a).multiply(y)), y };
 		return result;
 	}
 	
 	public String numberToString(BigInteger b) {
-		int characterLength = 7;
+		int characterLength = 5;
 		
 		// add zero padding
 		String message = b.toString();
@@ -69,7 +69,7 @@ public class Encrypter {
 			char c = string.charAt(i);
 			String asNumber = Integer.toString((int) c);
 			
-			int remainder = 7 - asNumber.length();
+			int remainder = 5 - asNumber.length();
 			asNumber = padWithZeros(asNumber, remainder);
 			
 			asUnicode += asNumber;
@@ -86,30 +86,30 @@ public class Encrypter {
 		return input;
 	}
 	
-	public int getD(int e, int phi) {
+	public BigInteger getD(BigInteger e, BigInteger phi) {
 		/**
 		 * Uses extendedEuclid to find r, a and b,
 		 * Then uses a to select the right calculation 
 		 * to find d.
 		 */
 		
-		int[] result = extendendEuclid(e, phi);
-//		int r = result[0];
-		int a = result[1];
-//		int b = result[2];
+		BigInteger[] result = extendendEuclid(e, phi);
+//		BigInteger r = result[0];
+		BigInteger a = result[1];
+//		BigInteger b = result[2];
 		
-		int d = 0;
-		if (a < 0) {
-			d = a + phi;
-		} else if (a >= phi) {
-			d = a % phi;
+		BigInteger d = BigInteger.ZERO;
+		if (a.compareTo(BigInteger.ZERO) < 0) {
+			d = a.add(phi);
+		} else if (a.compareTo(phi) >= 0) {
+			d = a.mod(phi);
 		} else {
-			d = a;;
+			d = a;
 		}
 		return d;
 	}
 	
-	public int getE() {
+	public BigInteger getE() {
 		/**
 		 * Returns a prime number that is small
 		 * enough to speed up calculation time, 
@@ -122,10 +122,10 @@ public class Encrypter {
 		 * https://engineering.purdue.edu/kak/compsec/NewLectures/Lecture12.pdf
 		 */
 		
-		return 65537;
+		return new BigInteger("65537");
 	}
 	
-	public int gcd(int a, int b) {
+	public BigInteger gcd(BigInteger a, BigInteger b) {
 		/**
 		 * Returns the greatest common divisor
 		 * between two numbers a and b.
@@ -133,10 +133,10 @@ public class Encrypter {
 		 * Euclidean Algorithm.
 		 */
 		
-		if (b == 0) {
+		if (b.equals(BigInteger.ZERO)) {
 			return a;
 		} else {
-			return gcd(b, a % b);
+			return gcd(b, a.mod(b));
 		}
 	}
 	

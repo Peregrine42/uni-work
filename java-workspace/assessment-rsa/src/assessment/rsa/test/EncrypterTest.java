@@ -3,6 +3,7 @@ package assessment.rsa.test;
 import static org.junit.Assert.*;
 
 import java.math.BigInteger;
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -11,32 +12,55 @@ import assessment.rsa.Encrypter;
 public class EncrypterTest {
 
 	@Test
-	public void getETest() {
-		Encrypter e = new Encrypter();
-		assertTrue(isPrime(e.getE()));
+	public void encryptTest() {
+		Encrypter enc = new Encrypter();
+		
+		BigInteger p = BigInteger.probablePrime(1024, new Random());
+		BigInteger q = BigInteger.probablePrime(1024, new Random());
+		
+		BigInteger n = p.multiply(q);
+		BigInteger phi = (p.subtract(BigInteger.ONE)).multiply((q.subtract(BigInteger.ONE)));
+		BigInteger e = enc.getE();
+		
+		assertEquals(new BigInteger("1"), enc.gcd(phi, e));
+		
+		BigInteger d = enc.getD(e, phi);
+
+		BigInteger M = enc.stringToUnicodeNumbers("hello there");
+		BigInteger C = M.modPow(e, n);
+		BigInteger M_dec = C.modPow(d, n);
+
+		assertTrue(M.equals(M_dec));
+
 	}
+	
+//	@Test
+//	public void getETest() {
+//		Encrypter e = new Encrypter();
+//		assertTrue(isPrime(e.getE()));
+//	}
 
 	@Test
 	public void gcdTest() {
 		Encrypter e = new Encrypter();
-		assertEquals(1, e.gcd(13, 60));
-		assertEquals(1, e.gcd(21580, 761));
-		assertEquals(2, e.gcd(2, 6));
-		assertEquals(2, e.gcd(6, 2));
-		assertEquals(3, e.gcd(6, 3));
+		assertEquals(BigInteger.ONE, e.gcd(new BigInteger("13"), new BigInteger("60")));
+		assertEquals(BigInteger.ONE, e.gcd(new BigInteger("21580"), new BigInteger("761")));
+		assertEquals(new BigInteger("2"), e.gcd(new BigInteger("2"), new BigInteger("6")));
+		assertEquals(new BigInteger("2"), e.gcd(new BigInteger("6"), new BigInteger("2")));
+		assertEquals(new BigInteger("3"), e.gcd(new BigInteger("6"), new BigInteger("3")));
 	}
 	
 	@Test
 	public void getDTest() {
 		Encrypter enc = new Encrypter();
 		
-		int phi = 60;
-		int e   = 13;
-		assertEquals(37, enc.getD(e, phi));
+		BigInteger phi = new BigInteger("60");
+		BigInteger e   = new BigInteger("13");
+		assertEquals(new BigInteger("37"), enc.getD(e, phi));
 		
-		int phi2 = 21580;
-		int e2   = 761;
-		assertEquals(7061, enc.getD(e2, phi2));
+		BigInteger phi2 = new BigInteger("21580");
+		BigInteger e2   = new BigInteger("761");
+		assertEquals(new BigInteger("7061"), enc.getD(e2, phi2));
 	}
 	
 	@Test
@@ -44,17 +68,17 @@ public class EncrypterTest {
 		Encrypter enc = new Encrypter();
 		
 		// Unicode
-		// A: 0000065
-		// B: 0000066
-		// C: 0000067
+		// A: 00065
+		// B: 00066
+		// C: 00067
 		
-		BigInteger target1 = new BigInteger("650000066");
+		BigInteger target1 = new BigInteger("6500066");
 		assertTrue(target1.equals(enc.stringToUnicodeNumbers("AB")));
 		
-		BigInteger target2 = new BigInteger("6700000650000066");
+		BigInteger target2 = new BigInteger("670006500066");
 		assertTrue(target2.equals(enc.stringToUnicodeNumbers("CAB")));
 		
-		BigInteger target3 = new BigInteger("640001506");
+		BigInteger target3 = new BigInteger("640021500162");
 		assertTrue(target3.equals(enc.stringToUnicodeNumbers("@ע")));
 	}
 	
@@ -62,24 +86,24 @@ public class EncrypterTest {
 	public void numberToStringTest() {
 		Encrypter enc = new Encrypter();
 		
-		BigInteger input1 = new BigInteger("650000066");
+		BigInteger input1 = new BigInteger("6500066");
 		assertEquals("AB", enc.numberToString(input1));
 		
-		BigInteger input2 = new BigInteger("6400015060002569");
-		assertEquals("@עਉ", enc.numberToString(input2));
+		BigInteger input2 = new BigInteger("64002150016200224");
+		assertEquals("@ע�", enc.numberToString(input2));
 	}
 	
-	@Test
-	public void isPrimeTest() {
-		assertEquals(true,  isPrime(1));
-		assertEquals(true,  isPrime(2));
-		assertEquals(true,  isPrime(3));
-		assertEquals(true,  isPrime(5));
-		assertEquals(true,  isPrime(227));
-		assertEquals(false, isPrime(228));
-	}
+//	@Test
+//	public void isPrimeTest() {
+//		assertEquals(true,  isPrime(new BigInteger("1")));
+//		assertEquals(true,  isPrime(new BigInteger("2")));
+//		assertEquals(true,  isPrime(new BigInteger("3")));
+//		assertEquals(true,  isPrime(new BigInteger("5")));
+//		assertEquals(true,  isPrime(new BigInteger("227")));
+//		assertEquals(false, isPrime(new BigInteger("228")));
+//	}
 
-	public boolean isPrime(int number) {
+	public boolean isPrime(BigInteger number) {
 		/**
 		 * Checks whether a number is prime or not. For a given number x it 
 		 * steps through each number up to half of x to see if that number 
@@ -87,13 +111,13 @@ public class EncrypterTest {
 		 * Adapted from:
 		 * http://stackoverflow.com/questions/19514680/prime-number-test-java
 		 */
-		int j = 2;
-		int halfNumber = number / 2;
-		while (j <= halfNumber) {
-			if (number % j == 0) {
+		BigInteger j = new BigInteger("2");
+		BigInteger halfNumber = number.divide(new BigInteger("2"));
+		while (j.compareTo(halfNumber) <= 0) {
+			if (number.mod(j).equals(BigInteger.ZERO)) {
 				return false;
 			}
-			j++;
+			j.add(BigInteger.ONE);
 		}
 		return true;
 	}
