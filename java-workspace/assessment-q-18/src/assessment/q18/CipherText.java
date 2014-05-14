@@ -1,11 +1,13 @@
 package assessment.q18;
 
-public class Cipher {
+public class CipherText {
 
 	String text;
+	String skipRegex;
 	
-	public Cipher(String s) {
-		text = s;
+	public CipherText(String s, String regex) {
+		text = s.toUpperCase();
+		this.skipRegex = regex;
 	}
 	
 	public String decrypt(char statisticallyMostCommonLetter) {
@@ -27,20 +29,24 @@ public class Cipher {
 		// the histogram is an array of frequencies, 
 		// with 'A''s frequency at position 0
 		
+		int a_value = (int) 'A';
+		
 		int[] histogram = new int[26];
 		
 		for (int i = 0; i < text.length(); i++) {
 			char character = text.charAt(i);
 			
-			// don't count spaces
-			if (character == ' ') {
+			// ignore characters that match the 
+			// regex to be skipped
+			if (String.valueOf(character).matches(skipRegex)) {
 				continue;
 			}
 			
+			// get character code
 			int value = (int) character;
 			
 			// convert character code to zero-based array position
-			value -= (int) 'A';
+			value -= a_value;
 			histogram[value] += 1;
 		}
 		
@@ -80,8 +86,9 @@ public class Cipher {
 			
 			char c = text.charAt(i);
 			
-			// ignore spaces
-			if (c == ' ') {
+			// ignore characters that match the 
+			// regex to be skipped
+			if (String.valueOf(c).matches(skipRegex)) {
 				encoded += ' ';
 				continue;
 			}
@@ -120,51 +127,4 @@ public class Cipher {
 		return c;
 	}
 	
-//	private HashMap<Character, Integer> buildHistogram(String text) {
-//		// produces a hash with the following form:
-//		//			histogram = { 'A': 5,
-//		//						  'B': 2,
-//		//					   letter: frequency, etc }
-//		
-//		int length = text.length();
-//		HashMap<Character, Integer> histogram = new HashMap<Character, Integer>();
-//		for (int i = 0; i < length; i++) {
-//			char c = text.charAt(i);
-//			if (histogram.containsKey(c)) {
-//				int currentTotal = histogram.get(c);
-//				currentTotal += 1;
-//				histogram.put(c, currentTotal);
-//			} else {
-//				histogram.put(c, 1);
-//			}
-//		}
-//		
-//		return histogram;
-//	}
-	
-//	private char getMostCommonLetter(Map<Character, Integer> histogram) {
-//		// gets the key with the highest value from the histogram
-//		// assumes a non-empty histogram
-//		
-//		int maxValue = 0;
-//		char maxChar = '0';		// error case - this will always be overwritten
-//								//              unless given an empty histogram
-//		for (Map.Entry<Character, Integer> entry : histogram.entrySet()) {
-//		    char key = entry.getKey();
-//		    int value = entry.getValue();
-//
-//		    if (value > maxValue) {
-//		    	maxValue = value;
-//		    	maxChar = key;
-//		    }
-//		}
-//		
-//		return maxChar;
-//	}
-	
-//	public char mostCommonLetter() {
-//		HashMap<Character, Integer> histogram = buildHistogram(text);
-//		char maxChar = getMostCommonLetter(histogram);
-//		return maxChar;
-//	}
 }

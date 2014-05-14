@@ -3,63 +3,63 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import assessment.q18.Cipher;
+import assessment.q18.CipherText;
 
 public class CipherTest {
 	@Test
 	public void mostCommonLetterTest() {
-		Cipher c = new Cipher("AEBECED");
+		CipherText c = new CipherText("AEBECED", " ");
 		assertEquals('E', c.mostCommonChar());
 		
-		c = new Cipher("AAB");
+		c = new CipherText("AAB", " ");
 		assertEquals('A', c.mostCommonChar());
 	}
 	
 	@Test
 	public void findOffsetTest() {
-		assertEquals(4, Cipher.findOffset('E', 'A'));
-		assertEquals(-4, Cipher.findOffset('A', 'E'));
+		assertEquals(4, CipherText.findOffset('E', 'A'));
+		assertEquals(-4, CipherText.findOffset('A', 'E'));
 	}
 	
 	@Test
 	public void translateTest() {
-		Cipher c = new Cipher("ABC");
+		CipherText c = new CipherText("ABC", " ");
 		assertEquals("BCD", c.translate(1));
 		
-		c = new Cipher("ABC");
+		c = new CipherText("ABC", " ");
 		assertEquals("ZAB", c.translate(-1));
 	}
 	
 	@Test
 	public void translateIgnoresSpacesTest() {
-		Cipher c = new Cipher("A B C");
+		CipherText c = new CipherText("A B C", " ");
 		assertEquals("B C D", c.translate(1));
 	}
 	
 	@Test
 	public void translateJustReturnsAnEmptyString() {
-		Cipher c = new Cipher("");
+		CipherText c = new CipherText("", " ");
 		assertEquals("", c.translate(1));
 	}
 	
 	@Test
 	public void integrationTest() {
-		Cipher c = new Cipher("FFFFFBCD");
+		CipherText c = new CipherText("FFFFFBCD", " ");
 		assertEquals("EEEEEABC", c.decrypt('E'));
 		
-		c = new Cipher("ABC");
+		c = new CipherText("ABC", " ");
 		assertEquals("EFG", c.decrypt('E'));
 	}
 	
 	@Test
 	public void integrationSpacesTest() {
-		Cipher c = new Cipher("FFFFF BCDEG        ");
+		CipherText c = new CipherText("FFFFF BCDEG        ", " ");
 		assertEquals("EEEEE ABCDF        ", c.decrypt('E'));
 	}
 	
 	@Test
 	public void integrationEmptyStringTest() {
-		Cipher c = new Cipher("");
+		CipherText c = new CipherText("", " ");
 		assertEquals("", c.decrypt('E'));
 	}
 }
