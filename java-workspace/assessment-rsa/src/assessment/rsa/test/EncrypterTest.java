@@ -112,7 +112,7 @@ public class EncrypterTest {
 		BigInteger target2 = new BigInteger("670006500066");
 		assertTrue(target2.equals(enc.stringToUnicodeNumbers("CAB")));
 		
-		BigInteger target3 = new BigInteger("640021500162");
+		BigInteger target3 = new BigInteger("6401506");
 		assertTrue(target3.equals(enc.stringToUnicodeNumbers("@ע")));
 	}
 	
@@ -123,8 +123,8 @@ public class EncrypterTest {
 		BigInteger input1 = new BigInteger("6500066");
 		assertEquals("AB", enc.numberToString(input1));
 		
-		BigInteger input2 = new BigInteger("64002150016200224");
-		assertEquals("@ע�", enc.numberToString(input2));
+		BigInteger input2 = new BigInteger("640022800115");
+		assertEquals("@äs", enc.numberToString(input2));
 	}
 
 	public boolean isPrime(BigInteger number) {
