@@ -8,18 +8,20 @@ public class Matrix {
 		for (int y = 0; y < a.length; y++) {
             for (int x = 0; x < a.length; x++) {
                 for (int i = 0; i < a.length; i++) {
-                	result[y][x] += b[i][x] * a[y][i];
+                	result[y][x] += a[y][i] * b[i][x];
                 }
             }
         }
         return result;
 	}
 	
-	public static double[][] dotProduct(int[][] a, int[][] b) {
+	public static int[][] dotProduct(int[][] a, int[][] b) {
 		double[][] x = convertIntArrayToDoubleArray(a);
 		double[][] y = convertIntArrayToDoubleArray(b);
 		
-		return dotProduct(x, y);
+		double[][] result = dotProduct(x, y);
+		
+		return convertDoubleArrayToIntArray(result);
 	}
 	
 	public static double[][] convertIntArrayToDoubleArray(int[][] a) {
@@ -28,6 +30,18 @@ public class Matrix {
 		for (int y = 0; y < a.length; y++) {
             for (int x = 0; x < a.length; x++) {
                 result[y][x] = (double) a[y][x];
+            }
+        }
+		
+		return result;
+	}
+	
+	public static int[][] convertDoubleArrayToIntArray(double[][] a) {
+		int[][] result = new int[a.length][a.length];
+		
+		for (int y = 0; y < a.length; y++) {
+            for (int x = 0; x < a.length; x++) {
+                result[y][x] = (int) a[y][x];
             }
         }
 		

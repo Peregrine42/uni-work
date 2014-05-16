@@ -1,5 +1,6 @@
 package assessment.q20;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Address {
@@ -14,6 +15,15 @@ public class Address {
 		this.surname = "";
 		this.emailAddress = "";
 		this.dateOfBirth = new Date();
+	}
+	
+	public String toString() {
+		String result = "";
+		result += firstName + " ";
+		result += surname + "\n";
+		result += emailAddress + "\n";
+		result += new SimpleDateFormat("dd/MM/yyyy").format(dateOfBirth);
+		return result;
 	}
 	
 	public String getByField(String field) {
