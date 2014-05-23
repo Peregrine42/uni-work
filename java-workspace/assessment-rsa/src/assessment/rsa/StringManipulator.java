@@ -4,7 +4,13 @@ import java.math.BigInteger;
 
 public class StringManipulator {
 
-	int chunkSize = 5;
+	int chunkSize;
+	int unicodeDecimalLength;
+	
+	public StringManipulator(int size) {
+		chunkSize = size;
+		unicodeDecimalLength = 5;
+	}
 	
 	public BigInteger[] convertToUnicodeInts(String text) {
 		/**
@@ -29,7 +35,7 @@ public class StringManipulator {
 		String result = "";
 		for (int i = 0; i < bigInts.length; i++) {
 			BigInteger value = bigInts[i];
-			result += chunkToString(value);
+			result += bigIntToString(value);
 		}
 		return result;
 	}
@@ -75,17 +81,28 @@ public class StringManipulator {
 		return result;
 	}
 	
-	private String chunkToString(BigInteger b) {
+	private String bigIntToString(BigInteger b) {
+		/**
+		 * assumes the integer is a set of unicode values
+		 * concatenated together like this:
+		 * 1130010000101
+		 * becomes:
+		 * 113, 100, 101
+		 * becomes:
+		 * "ēde"
+		 */
+		
 		// add zero padding
-		String message = b.toString();
-		int remainder = chunkSize - (message.length() % chunkSize);
-		message = Library.padWithZeros(message, remainder);
+		String bigIntMessage = b.toString();
+		int remainder = bigIntMessage.length() % unicodeDecimalLength;
+		int extraZerosNeeded = unicodeDecimalLength - remainder;
+		bigIntMessage = Library.padWithZeros(bigIntMessage, extraZerosNeeded);
 		
 		// split into sets of numbers
-		int amountOfCharacters = message.length()/chunkSize;
+		int amountOfCharacters = bigIntMessage.length()/unicodeDecimalLength;
 		String[] parts = new String[amountOfCharacters];
 		for (int i = 0; i < amountOfCharacters; i++) {
-			parts[i] = message.substring(i*chunkSize, (i*chunkSize) + chunkSize);
+			parts[i] = bigIntMessage.substring(i*unicodeDecimalLength, (i*unicodeDecimalLength) + unicodeDecimalLength);
 		}
 		
 		// convert to unicode
@@ -107,7 +124,7 @@ public class StringManipulator {
 	
 	private BigInteger stringToUnicodeNumber(String string) {
 		/**
-		 * takes a string and produces a big int
+		 * takes a string and produces a BigInteger
 		 * by converting each character to unicode numbers 
 		 * and concatenating those numbers into a single
 		 * big int
@@ -118,7 +135,7 @@ public class StringManipulator {
 			char c = string.charAt(i);
 			String asNumber = Integer.toString((int) c);
 			
-			int remainder = chunkSize - asNumber.length();
+			int remainder = unicodeDecimalLength - asNumber.length();
 			asNumber = Library.padWithZeros(asNumber, remainder);
 			
 			asUnicode += asNumber;
@@ -129,12 +146,18 @@ public class StringManipulator {
 	}
 	
 	private String[] splitMessage(String M) {
-		int length = (M.length()/chunkSize) + 1;
-		if (M.isEmpty()) {
-			length = 0;
+		if (M.length() <= chunkSize) {
+			String[] result = { M };
+			return result;
 		}
 		
-		String[] result = new String[length];
+		int amountOfChunks = (M.length()/chunkSize);
+		
+		if (M.length() % chunkSize != 0) {
+			amountOfChunks += 1;
+		}
+
+		String[] result = new String[amountOfChunks];
 		
 		String buffer = "";
 		int arrayCounter = 0;
@@ -154,6 +177,7 @@ public class StringManipulator {
 		
 		return result;
 	}
+
 	
 //	public BigInteger[] convert(String message) {
 //		String[] messageChunks = splitMessage(message);

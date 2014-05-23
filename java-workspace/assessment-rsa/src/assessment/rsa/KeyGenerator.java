@@ -7,8 +7,10 @@ public class KeyGenerator {
 
 	public PublicKey publicKey;
 	private PrivateKey privateKey;
+	private int primeLength;
 	
-	public KeyGenerator() {
+	public KeyGenerator(int primeLength) {
+		this.primeLength = primeLength;
 		generate();
 	}
 	
@@ -110,8 +112,8 @@ public class KeyGenerator {
 		
 		InitialValues() {
 			e = getE();
-			p = BigInteger.probablePrime(64, new Random());
-			q = BigInteger.probablePrime(64, new Random());
+			p = BigInteger.probablePrime(primeLength, new Random());
+			q = BigInteger.probablePrime(primeLength, new Random());
 			phi = (p.subtract(BigInteger.ONE)).multiply((q.subtract(BigInteger.ONE)));
 		}
 		

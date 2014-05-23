@@ -1,36 +1,41 @@
 package assessment.rsa.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigInteger;
 
 import assessment.rsa.StringManipulator;
 
-public class StringManipulationTest {
+public class StringManipulatorTest {
+	
+	private StringManipulator parser;
+	
+	@Before
+	public void initManipulator() {
+		parser = new StringManipulator(10);
+	}
 	
 	@Test
 	public void convertToUnicodeIntsTest() {
-		StringManipulator parser = new StringManipulator();
 		BigInteger[] expected = { new BigInteger("970009800099") };
 		BigInteger[] actual = parser.convertToUnicodeInts("abc");
-		assertTrue(expected[0].equals(actual[0]));
+		assertArrayEquals(expected, actual);
 	}
 	
 	@Test
 	public void convertToUnicodeIntsTestLong() {
-		StringManipulator parser = new StringManipulator();
 		BigInteger[] expected = { new BigInteger("9700098000990010000101"), new BigInteger("0010200103") };
 		BigInteger[] actual = parser.convertToUnicodeInts("abcdefg");
-		assertTrue(expected[0].equals(actual[0]));
-		assertTrue(expected[1].equals(actual[1]));
+		assertArrayEquals(expected, actual);
 	}
 	
 	@Test
 	public void convertToUnicodeStringTest() {
-		StringManipulator parser = new StringManipulator();
 		BigInteger[] bigInts = { new BigInteger("00100"), 
 				                 new BigInteger("00101"), 
 				                 new BigInteger("00102"), 
@@ -40,7 +45,6 @@ public class StringManipulationTest {
 	
 	@Test
 	public void parseCipherTextTest() {
-		StringManipulator parser = new StringManipulator();
 		
 		String cipherText = "10143 65305 00231";
 		BigInteger[] expected = { new BigInteger("10143"), 
@@ -55,7 +59,6 @@ public class StringManipulationTest {
 	
 	@Test
 	public void concatenateBigIntsTest() {
-		StringManipulator parser = new StringManipulator();
 		
 		BigInteger[] bigInts = { new BigInteger("00100"), 
                 				 new BigInteger("00101"), 

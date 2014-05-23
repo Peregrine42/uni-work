@@ -14,7 +14,7 @@ public class EncoderTest {
 		// B: 00066
 		// C: 00067
 		
-		StringManipulator s = new StringManipulator();
+		StringManipulator s = new StringManipulator(5);
 		
 		BigInteger target1 = new BigInteger("6500066");
 		assertTrue(target1.equals(s.convertToUnicodeInts("AB")));
