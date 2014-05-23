@@ -7,14 +7,14 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import assessment.rsa.Encrypter;
-import assessment.rsa.Encrypter.encryptedMessagePair;
+import assessment.rsa.OldEncrypter;
+import assessment.rsa.OldEncrypter.encryptedMessagePair;
 
-public class EncrypterTest {
+public class OldEncrypterTest {
 
 	@Test
 	public void encryptTest() {
-		Encrypter enc = new Encrypter();
+		OldEncrypter enc = new OldEncrypter();
 		
 		BigInteger p = BigInteger.probablePrime(64, new Random());
 		BigInteger q = BigInteger.probablePrime(64, new Random());
@@ -37,7 +37,7 @@ public class EncrypterTest {
 	
 	@Test
 	public void encryptIntegrationTest() {
-		Encrypter enc = new Encrypter();
+		OldEncrypter enc = new OldEncrypter();
 		
 		String M     = "hi there how are you today!";
 		encryptedMessagePair mp = enc.encrypt(M);
@@ -51,7 +51,7 @@ public class EncrypterTest {
 	
 	@Test
 	public void splitMessageTest() {
-		Encrypter enc = new Encrypter();
+		OldEncrypter enc = new OldEncrypter();
 		
 		splitMessageTestRoutine(enc, "abcdefghi", new String[] {"abcde", "fghi"});
 		splitMessageTestRoutine(enc, "abcdefghij", new String[] {"abcde", "fghij"});
@@ -60,7 +60,7 @@ public class EncrypterTest {
 		
 	}
 	
-	public void splitMessageTestRoutine(Encrypter enc, String message, String[] expected) {
+	public void splitMessageTestRoutine(OldEncrypter enc, String message, String[] expected) {
 		String[] result = enc.splitMessage(message);
 		assertTrue(compareArrays(expected, result));
 	}
@@ -76,7 +76,7 @@ public class EncrypterTest {
 
 	@Test
 	public void gcdTest() {
-		Encrypter e = new Encrypter();
+		OldEncrypter e = new OldEncrypter();
 		assertEquals(BigInteger.ONE, e.gcd(new BigInteger("13"), new BigInteger("60")));
 		assertEquals(BigInteger.ONE, e.gcd(new BigInteger("21580"), new BigInteger("761")));
 		assertEquals(new BigInteger("2"), e.gcd(new BigInteger("2"), new BigInteger("6")));
@@ -86,7 +86,7 @@ public class EncrypterTest {
 	
 	@Test
 	public void getDTest() {
-		Encrypter enc = new Encrypter();
+		OldEncrypter enc = new OldEncrypter();
 		
 		BigInteger phi = new BigInteger("60");
 		BigInteger e   = new BigInteger("13");
@@ -99,7 +99,7 @@ public class EncrypterTest {
 	
 	@Test
 	public void stringToUnicodeNumbersTest() {
-		Encrypter enc = new Encrypter();
+		OldEncrypter enc = new OldEncrypter();
 		
 		// Unicode
 		// A: 00065
@@ -118,7 +118,7 @@ public class EncrypterTest {
 	
 	@Test
 	public void numberToStringTest() {
-		Encrypter enc = new Encrypter();
+		OldEncrypter enc = new OldEncrypter();
 		
 		BigInteger input1 = new BigInteger("6500066");
 		assertEquals("AB", enc.numberToString(input1));
@@ -127,23 +127,23 @@ public class EncrypterTest {
 		assertEquals("@äs", enc.numberToString(input2));
 	}
 
-	public boolean isPrime(BigInteger number) {
-		/**
-		 * Checks whether a number is prime or not. For a given number x it 
-		 * steps through each number up to half of x to see if that number 
-		 * goes into x with no remainder. 
-		 * Adapted from:
-		 * http://stackoverflow.com/questions/19514680/prime-number-test-java
-		 */
-		BigInteger j = new BigInteger("2");
-		BigInteger halfNumber = number.divide(new BigInteger("2"));
-		while (j.compareTo(halfNumber) <= 0) {
-			if (number.mod(j).equals(BigInteger.ZERO)) {
-				return false;
-			}
-			j.add(BigInteger.ONE);
-		}
-		return true;
-	}
+//	public boolean isPrime(BigInteger number) {
+//		/**
+//		 * Checks whether a number is prime or not. For a given number x it 
+//		 * steps through each number up to half of x to see if that number 
+//		 * goes into x with no remainder. 
+//		 * Adapted from:
+//		 * http://stackoverflow.com/questions/19514680/prime-number-test-java
+//		 */
+//		BigInteger j = new BigInteger("2");
+//		BigInteger halfNumber = number.divide(new BigInteger("2"));
+//		while (j.compareTo(halfNumber) <= 0) {
+//			if (number.mod(j).equals(BigInteger.ZERO)) {
+//				return false;
+//			}
+//			j.add(BigInteger.ONE);
+//		}
+//		return true;
+//	}
 
 }
