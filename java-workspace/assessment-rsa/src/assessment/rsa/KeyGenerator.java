@@ -84,26 +84,6 @@ public class KeyGenerator {
 		return d;
 	}
 	
-	public class PublicKey {
-		public BigInteger e;
-		public BigInteger n;
-		
-		PublicKey(BigInteger e, BigInteger n) {
-			this.e = e;
-			this.n = n;
-		}
-	}
-	
-	public class PrivateKey {
-		public BigInteger d;
-		public BigInteger n;
-		
-		PrivateKey(BigInteger d, BigInteger n) {
-			this.d = d;
-			this.n = n;
-		}
-	}
-	
 	private class InitialValues {
 		public BigInteger p;
 		public BigInteger q;

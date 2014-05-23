@@ -11,14 +11,16 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileLibrary {
+public class File {
 	
 	Path path;
 	
-	public FileLibrary(String filename) {
+	public File(String... filenames) {
 		Path currentRelativePath = Paths.get("");
-		Path path = currentRelativePath.toAbsolutePath();
-		this.path = path.resolve(filename);
+		this.path = currentRelativePath.toAbsolutePath();
+		for (String s : filenames) {
+			this.path = this.path.resolve(s);
+		}
 	}
 	
 	public String read() throws IOException {
@@ -26,6 +28,9 @@ public class FileLibrary {
 		 * reads the contents of a file, stripping
 		 * any type of carriage return or line feed
 		 * and replacing it with single line feeds
+		 * 
+		 * useful:
+		 * http://illegalargumentexception.blogspot.co.uk/2009/05/java-rough-guide-to-character-encoding.html#javaencoding_streams
 		 */
 		
 		FileInputStream input = null;
@@ -61,6 +66,10 @@ public class FileLibrary {
 	}
 
 	public void write(String string) throws IOException {
+		/**
+		 * writes a string to file
+		 */
+		
 		FileOutputStream output = null;
 		OutputStreamWriter writer = null;
 		try {

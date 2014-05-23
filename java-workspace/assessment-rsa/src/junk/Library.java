@@ -1,4 +1,4 @@
-package assessment.rsa;
+package junk;
 
 public class Library {
 	public static String padWithZeros(String input, int remainder) {

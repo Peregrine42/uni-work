@@ -96,7 +96,7 @@ public class StringManipulator {
 		String bigIntMessage = b.toString();
 		int remainder = bigIntMessage.length() % unicodeDecimalLength;
 		int extraZerosNeeded = unicodeDecimalLength - remainder;
-		bigIntMessage = Library.padWithZeros(bigIntMessage, extraZerosNeeded);
+		bigIntMessage = padWithZeros(bigIntMessage, extraZerosNeeded);
 		
 		// split into sets of numbers
 		int amountOfCharacters = bigIntMessage.length()/unicodeDecimalLength;
@@ -136,7 +136,7 @@ public class StringManipulator {
 			String asNumber = Integer.toString((int) c);
 			
 			int remainder = unicodeDecimalLength - asNumber.length();
-			asNumber = Library.padWithZeros(asNumber, remainder);
+			asNumber = padWithZeros(asNumber, remainder);
 			
 			asUnicode += asNumber;
 		}
@@ -178,6 +178,12 @@ public class StringManipulator {
 		return result;
 	}
 
+	public static String padWithZeros(String input, int remainder) {
+		for (int j = 0; j < remainder; j++) {
+			input = "0" + input;
+		}
+		return input;
+	}
 	
 //	public BigInteger[] convert(String message) {
 //		String[] messageChunks = splitMessage(message);

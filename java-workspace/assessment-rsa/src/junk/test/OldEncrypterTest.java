@@ -1,14 +1,15 @@
-package assessment.rsa.test;
+package junk.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
 import java.util.Random;
 
-import org.junit.Test;
+import junk.OldEncrypter;
+import junk.OldEncrypter.encryptedMessagePair;
 
-import assessment.rsa.OldEncrypter;
-import assessment.rsa.OldEncrypter.encryptedMessagePair;
+import org.junit.Test;
 
 public class OldEncrypterTest {
 

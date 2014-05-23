@@ -2,21 +2,24 @@ package assessment.rsa;
 
 import java.math.BigInteger;
 
-import assessment.rsa.KeyGenerator.PrivateKey;
-
 public class Decrypter {
 
-	public BigInteger[] decrypt(BigInteger[] cipherInts, PrivateKey key) {
+	PrivateKey key;
+	
+	public Decrypter(PrivateKey key) {
+		this.key = key;
+	}
+	
+	public BigInteger[] decrypt(BigInteger[] cipherInts) {
 		BigInteger[] decrypted = new BigInteger[cipherInts.length];
 		for (int i = 0; i < decrypted.length; i++) {
-			decrypted[i] = decrypt(cipherInts[i], key);
+			decrypted[i] = decrypt(cipherInts[i]);
 		}
 		
 		return decrypted;
 	}
 	
-	private static BigInteger decrypt(BigInteger big_int, PrivateKey key) {
+	private BigInteger decrypt(BigInteger big_int) {
 		return big_int.modPow(key.d, key.n);
-		
 	}
 }

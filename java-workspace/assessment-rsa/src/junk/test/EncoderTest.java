@@ -1,4 +1,4 @@
-package assessment.rsa.test;
+package junk.test;
 
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;

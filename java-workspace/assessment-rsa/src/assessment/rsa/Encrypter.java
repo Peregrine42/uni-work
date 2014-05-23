@@ -1,21 +1,26 @@
 package assessment.rsa;
 
 import java.math.BigInteger;
-import assessment.rsa.KeyGenerator.PublicKey;
 
 public class Encrypter {
 	
-	public BigInteger[] encrypt(BigInteger[] message, PublicKey key) {
+	PublicKey key;
+	
+	public Encrypter(PublicKey key) {
+		this.key = key;
+	}
+	
+	public BigInteger[] encrypt(BigInteger[] message) {
 		BigInteger[] encryptedInts = new BigInteger[message.length];
 		for (int i = 0; i < message.length; i++) {
-			encryptedInts[i] = encrypt(message[i], key);
+			encryptedInts[i] = encrypt(message[i]);
 		}
 		return encryptedInts;
 		
 	}
 	
-	private BigInteger encrypt(BigInteger m, PublicKey k) {
-		BigInteger C = m.modPow(k.e, k.n);
+	private BigInteger encrypt(BigInteger m) {
+		BigInteger C = m.modPow(key.e, key.n);
 		return C;
 	}
 	
