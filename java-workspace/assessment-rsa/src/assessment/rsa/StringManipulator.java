@@ -47,6 +47,10 @@ public class StringManipulator {
 		 * into an array of big integers
 		 */
 		
+		if (cipherText.isEmpty()) {
+			return new BigInteger[0];
+		}
+		
 		// split on spaces
 		String[] ciphered_parts = cipherText.split(" ");
 		
@@ -141,11 +145,19 @@ public class StringManipulator {
 			asUnicode += asNumber;
 		}
 		
+//		if (asUnicode.equals("")) {
+//			return BigInteger.ZERO;
+//		}
+		
 		BigInteger result = new BigInteger(asUnicode);
 		return result;
 	}
 	
 	private String[] splitMessage(String M) {
+		if (M.isEmpty()) {
+			return new String[0];
+		}
+		
 		if (M.length() <= chunkSize) {
 			String[] result = { M };
 			return result;
