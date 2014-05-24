@@ -9,21 +9,28 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 
-import assessment.rsa.StringManipulator;
+import assessment.rsa.StringParser;
 
-public class StringManipulatorTest {
+public class StringParserTest {
 	
-	private StringManipulator parser;
+	private StringParser parser;
 	
 	@Before
 	public void initManipulator() {
-		parser = new StringManipulator(10);
+		parser = new StringParser(5);
 	}
 	
 	@Test
 	public void convertToUnicodeIntsTest() {
 		BigInteger[] expected = { new BigInteger("970009800099") };
 		BigInteger[] actual = parser.convertToUnicodeInts("abc");
+		assertArrayEquals(expected, actual);
+	}
+	
+	@Test
+	public void convertEmptyToUnicodeIntsTest() {
+		BigInteger[] expected = { };
+		BigInteger[] actual = parser.convertToUnicodeInts("");
 		assertArrayEquals(expected, actual);
 	}
 	
@@ -55,6 +62,16 @@ public class StringManipulatorTest {
 		assertTrue(expected[0].equals(actual[0]));
 		assertTrue(expected[1].equals(actual[1]));
 		assertTrue(expected[2].equals(actual[2]));
+	}
+	
+	@Test
+	public void parseEmptyCipherTextTest() {
+		
+		String cipherText = "";
+		BigInteger[] expected = { };
+ 
+		BigInteger[] actual = parser.parseCipherText(cipherText);
+		assertArrayEquals(actual, expected);
 	}
 	
 	@Test

@@ -2,12 +2,12 @@ package assessment.rsa;
 
 import java.math.BigInteger;
 
-public class StringManipulator {
+public class StringParser {
 
 	int chunkSize;
 	int unicodeDecimalLength;
 	
-	public StringManipulator(int size) {
+	public StringParser(int size) {
 		chunkSize = size;
 		unicodeDecimalLength = 5;
 	}

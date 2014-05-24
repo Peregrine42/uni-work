@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import java.math.BigInteger;
-import assessment.rsa.StringManipulator;
+import assessment.rsa.StringParser;
 
 public class EncoderTest {
 	@Test
@@ -14,7 +14,7 @@ public class EncoderTest {
 		// B: 00066
 		// C: 00067
 		
-		StringManipulator s = new StringManipulator(5);
+		StringParser s = new StringParser(5);
 		
 		BigInteger target1 = new BigInteger("6500066");
 		assertTrue(target1.equals(s.convertToUnicodeInts("AB")));

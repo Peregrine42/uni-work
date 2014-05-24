@@ -2,23 +2,22 @@ package assessment.rsa;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class File {
+public class SimpleFile {
 	
 	Path path;
 	
-	public File(String... filenames) {
+	public SimpleFile(String... filenames) {
 		Path currentRelativePath = Paths.get("");
 		this.path = currentRelativePath.toAbsolutePath();
 		for (String s : filenames) {
+			// if (s.isEmpty()) { continue; }
 			this.path = this.path.resolve(s);
 		}
 	}
