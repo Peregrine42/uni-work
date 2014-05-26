@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 public class EncrypterCLI {
-
+	
 	public static void main(String[] args) {
 		
 		// handle command line arguments
@@ -31,9 +31,9 @@ public class EncrypterCLI {
 		}
 		
 		// encrypt the message
-		StringParser parser = new StringParser();
+		StringParser parser = new StringParser(7);
 		BigInteger[] messageAsInts = 
-				parser.convertToUnicodeInts(messageFromFile, 7); // split the message into 7-char chunks
+				parser.convertToUnicodeInts(messageFromFile); // split the message into 7-char chunks
 		Encrypter enc = new Encrypter(new PublicKey(publicKeyString));
 		BigInteger[] encryptedMessageAsInts = enc.encrypt(messageAsInts);
 		String cipherText = parser.concatenateBigInts(encryptedMessageAsInts);

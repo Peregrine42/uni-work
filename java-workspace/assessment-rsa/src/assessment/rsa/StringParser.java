@@ -5,14 +5,19 @@ import java.math.BigInteger;
 public class StringParser {
 
 	static int unicodeDecimalLength = 5;
+	int chunkSize;
 	
-	public BigInteger[] convertToUnicodeInts(String text, int chunkSize) {
+	public StringParser(int size) {
+		chunkSize = size;
+	}
+	
+	public BigInteger[] convertToUnicodeInts(String text) {
 		/**
 		 * converts a string into an array of big integers based
 		 * on their Unicode value.
 		 */
 		
-		String[] messageChunks = splitMessage(text, chunkSize);
+		String[] messageChunks = splitMessage(text);
 		BigInteger[] result = new BigInteger[messageChunks.length];
 		for (int i = 0; i < messageChunks.length; i++) {
 			String string = messageChunks[i];
@@ -90,34 +95,46 @@ public class StringParser {
 		 * "ēde"
 		 */
 		// add zero padding
-		String bigIntMessage = b.toString();
-		int remainder = bigIntMessage.length() % unicodeDecimalLength;
+		String messageString = b.toString();
+		int remainder = messageString.length() % unicodeDecimalLength;
 		int extraZerosNeeded = unicodeDecimalLength - remainder;
-		bigIntMessage = padWithZeros(bigIntMessage, extraZerosNeeded);
+		messageString = padWithZeros(messageString, extraZerosNeeded);
 		
-		// split into sets of numbers
-		int amountOfCharacters = bigIntMessage.length()/unicodeDecimalLength;
-		String[] parts = new String[amountOfCharacters];
-		for (int i = 0; i < amountOfCharacters; i++) {
-			parts[i] = bigIntMessage.substring(i*unicodeDecimalLength, (i*unicodeDecimalLength) + unicodeDecimalLength);
-		}
+		String[] sections = splitIntoSections(messageString, unicodeDecimalLength);
 		
 		// convert to unicode
 		String convertedMessage = "";
-		for (int i = 0; i < parts.length; i++) {
+		for (int i = 0; i < sections.length; i++) {
 			
-			// treat the set as a decimal number and convert
+			// assume the part is a decimal number and convert
 			// to an integer
-			int cc = Integer.parseInt(parts[i]);
+			int characterCode = Integer.parseInt(sections[i]);
 			
 			// convert that integer value to a char, 
 			// completing the conversion
-			char ccc = (char) cc;
-			convertedMessage = convertedMessage + String.valueOf(ccc);
+			char messageCharacter = (char) characterCode;
+			convertedMessage = convertedMessage + String.valueOf(messageCharacter);
 		}
 		
 		return convertedMessage;
 	}
+	
+	private String[] splitIntoSections(String message, int sectionSize) {
+		/**
+		 * split the String into x-digit String parts
+		 * "001130010000101"
+		 * becomes:
+		 * ["00113", "00100", "00101"]
+		 */
+		
+		int amountOfCharacters = message.length()/sectionSize;
+		String[] sections = new String[amountOfCharacters];
+		for (int i = 0; i < amountOfCharacters; i++) {
+			sections[i] = message.substring(i*sectionSize, (i*sectionSize) + sectionSize);
+		}
+		return sections;
+	}
+	
 	
 	private BigInteger stringToUnicodeNumber(String string) {
 		/**
@@ -142,7 +159,7 @@ public class StringParser {
 		return result;
 	}
 	
-	public String[] splitMessage(String M, int chunkSize) {
+	public String[] splitMessage(String M) {
 		if (M.isEmpty()) {
 			return new String[0];
 		}

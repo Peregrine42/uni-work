@@ -29,7 +29,7 @@ public class DecrypterCLI {
 		}
 			
 		// decrypt the cipher text
-		StringParser parser = new StringParser();
+		StringParser parser = new StringParser(7);
 		BigInteger[] cipherTextAsInts = parser.parseCipherText(cipherTextFromFile);
 		Decrypter dec = new Decrypter(new PrivateKey(privateKeyString));
 		BigInteger[] decryptedTextAsInts = dec.decrypt(cipherTextAsInts);

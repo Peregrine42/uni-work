@@ -17,27 +17,27 @@ public class StringParserTest {
 
 	@Before
 	public void initManipulator() {
-		parser = new StringParser();
+		parser = new StringParser(5);
 	}
 
 	@Test
 	public void convertToUnicodeIntsTest() {
 		BigInteger[] expected = { new BigInteger("970009800099") };
-		BigInteger[] actual = parser.convertToUnicodeInts("abc", 5);
+		BigInteger[] actual = parser.convertToUnicodeInts("abc");
 		assertArrayEquals(expected, actual);
 	}
 
 	@Test
 	public void convertEmptyToUnicodeIntsTest() {
 		BigInteger[] expected = { };
-		BigInteger[] actual = parser.convertToUnicodeInts("", 5);
+		BigInteger[] actual = parser.convertToUnicodeInts("");
 		assertArrayEquals(expected, actual);
 	}
 
 	@Test
 	public void convertToUnicodeIntsTestLong() {
 		BigInteger[] expected = { new BigInteger("9700098000990010000101"), new BigInteger("0010200103") };
-		BigInteger[] actual = parser.convertToUnicodeInts("abcdefg", 5);
+		BigInteger[] actual = parser.convertToUnicodeInts("abcdefg");
 		assertArrayEquals(expected, actual);
 	}
 
@@ -94,7 +94,7 @@ public class StringParserTest {
 	}
 
 	public void splitMessageInto5TestRoutine(String message, String[] expected) {
-		String[] result = parser.splitMessage(message, 5);
+		String[] result = parser.splitMessage(message);
 		assertArrayEquals(expected, result);
 	}
 

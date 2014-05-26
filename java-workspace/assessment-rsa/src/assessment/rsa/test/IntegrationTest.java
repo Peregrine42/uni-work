@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.math.BigInteger;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import assessment.rsa.Decrypter;
@@ -17,28 +18,40 @@ import assessment.rsa.StringParser;
 
 public class IntegrationTest {
 
+	KeyGenerator keygen;
+	StringParser parser;
+	
+	@Before
+	public void setup() {
+		keygen = new KeyGenerator(512);
+		parser = new StringParser(30);
+	}
+	
 	@Test
 	public void integrationTest() {
 		String message = "hello, how are you today? ф! this is a much longer message but we should be able to cope";
 		
-		KeyGenerator keygen = new KeyGenerator(512);
-		StringParser manipulator = new StringParser();
-		
-		BigInteger[] messageAsInts = manipulator.convertToUnicodeInts(message, 30);
-		
-		Encrypter enc = new Encrypter(keygen.getPublicKey());
-		BigInteger[] encryptedMessageAsInts = enc.encrypt(messageAsInts);
-		
-		String cipherText = manipulator.concatenateBigInts(encryptedMessageAsInts);
-		
-		BigInteger[] cipherTextAsInts = manipulator.parseCipherText(cipherText);
-		
-		Decrypter dec = new Decrypter(keygen.getPrivateKey());
-		BigInteger[] decryptedTextAsInts = dec.decrypt(cipherTextAsInts);
-		
-		String decryptedMessage = manipulator.convertToUnicodeString(decryptedTextAsInts);
+		String cipherText = encryptString(message, keygen.getPublicKey());
+		String decryptedMessage = decryptString(cipherText, keygen.getPrivateKey());
 		
 		assertEquals(message, decryptedMessage);
+	}
+	
+	public String encryptString(String message, PublicKey key) {
+		Encrypter enc = new Encrypter(key);
+		
+		BigInteger[] messageAsInts = parser.convertToUnicodeInts(message);
+		BigInteger[] encryptedMessageAsInts = enc.encrypt(messageAsInts);
+		return parser.concatenateBigInts(encryptedMessageAsInts);
+	}
+	
+	public String decryptString(String cipherText, PrivateKey key) {
+		Decrypter dec = new Decrypter(key);
+		
+		BigInteger[] cipherTextAsInts = parser.parseCipherText(cipherText);
+		BigInteger[] decryptedTextAsInts = dec.decrypt(cipherTextAsInts);
+		
+		return parser.convertToUnicodeString(decryptedTextAsInts);
 	}
 	
 	@Test
@@ -49,14 +62,10 @@ public class IntegrationTest {
 		SimpleFile inputFile = new SimpleFile("output", "integration", "input");
 		inputFile.write(theOriginalMessage);
 		
-		// keygen
-		// generate keys and write them to files
-		KeyGenerator keygen = new KeyGenerator(64);
-		
 		new SimpleFile("output", "integration", "public.key").write(keygen.getPublicKey().toString());
 		new SimpleFile("output", "integration", "private.key").write(keygen.getPrivateKey().toString());
 		
-		// encrypter
+		// encrypt
 		// read in the public key
 		String publicKeyString = new SimpleFile("output", "integration", "public.key").read();
 		
@@ -64,17 +73,13 @@ public class IntegrationTest {
 		String messageFromFile = new SimpleFile("output", "integration", "input").read();
 		
 		// encrypt the message
-		StringParser manipulator = new StringParser();
-		BigInteger[] messageAsInts = manipulator.convertToUnicodeInts(messageFromFile, 3);
-		Encrypter enc = new Encrypter(new PublicKey(publicKeyString));
-		BigInteger[] encryptedMessageAsInts = enc.encrypt(messageAsInts);
-		String cipherText = manipulator.concatenateBigInts(encryptedMessageAsInts);
+		String cipherText = encryptString(messageFromFile, new PublicKey(publicKeyString));
 		
 		// write ciphertext to file
 		new SimpleFile("output", "integration", "ciphertext").write(cipherText);
 		
 		
-		//decrypter
+		//decrypt
 		// read in the private key
 		String privateKeyString = new SimpleFile("output", "integration", "private.key").read();
 		
@@ -82,13 +87,9 @@ public class IntegrationTest {
 		String cipherTextFromFile = new SimpleFile("output", "integration", "ciphertext").read();
 		
 		// decrypt the cipher text
-		BigInteger[] cipherTextAsInts = manipulator.parseCipherText(cipherTextFromFile);
-		Decrypter dec = new Decrypter(new PrivateKey(privateKeyString));
-		BigInteger[] decryptedTextAsInts = dec.decrypt(cipherTextAsInts);
-		String decryptedMessage = manipulator.convertToUnicodeString(decryptedTextAsInts);
+		String decryptedMessage = decryptString(cipherTextFromFile, new PrivateKey(privateKeyString));
 		
 		// output
-		System.out.println(decryptedMessage);
 		assertEquals(theOriginalMessage, decryptedMessage);
 		
 	}
