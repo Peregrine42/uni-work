@@ -31,11 +31,12 @@ public class EncrypterCLI {
 		}
 		
 		// encrypt the message
-		StringParser manipulator = new StringParser(7);	// split message into 7-char chunks
-		BigInteger[] messageAsInts = manipulator.convertToUnicodeInts(messageFromFile);
+		StringParser parser = new StringParser();
+		BigInteger[] messageAsInts = 
+				parser.convertToUnicodeInts(messageFromFile, 7); // split the message into 7-char chunks
 		Encrypter enc = new Encrypter(new PublicKey(publicKeyString));
 		BigInteger[] encryptedMessageAsInts = enc.encrypt(messageAsInts);
-		String cipherText = manipulator.concatenateBigInts(encryptedMessageAsInts);
+		String cipherText = parser.concatenateBigInts(encryptedMessageAsInts);
 		
 		// write ciphertext to file
 		try {

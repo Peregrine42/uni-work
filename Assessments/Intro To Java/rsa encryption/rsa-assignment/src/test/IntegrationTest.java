@@ -22,9 +22,9 @@ public class IntegrationTest {
 		String message = "hello, how are you today? ф! this is a much longer message but we should be able to cope";
 		
 		KeyGenerator keygen = new KeyGenerator(512);
-		StringParser manipulator = new StringParser();
+		StringParser manipulator = new StringParser(30);
 		
-		BigInteger[] messageAsInts = manipulator.convertToUnicodeInts(message, 30);
+		BigInteger[] messageAsInts = manipulator.convertToUnicodeInts(message);
 		
 		Encrypter enc = new Encrypter(keygen.getPublicKey());
 		BigInteger[] encryptedMessageAsInts = enc.encrypt(messageAsInts);
@@ -64,8 +64,8 @@ public class IntegrationTest {
 		String messageFromFile = new SimpleFile("output", "integration", "input").read();
 		
 		// encrypt the message
-		StringParser manipulator = new StringParser();
-		BigInteger[] messageAsInts = manipulator.convertToUnicodeInts(messageFromFile, 3);
+		StringParser manipulator = new StringParser(3);
+		BigInteger[] messageAsInts = manipulator.convertToUnicodeInts(messageFromFile);
 		Encrypter enc = new Encrypter(new PublicKey(publicKeyString));
 		BigInteger[] encryptedMessageAsInts = enc.encrypt(messageAsInts);
 		String cipherText = manipulator.concatenateBigInts(encryptedMessageAsInts);

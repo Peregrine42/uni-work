@@ -29,11 +29,11 @@ public class DecrypterCLI {
 		}
 			
 		// decrypt the cipher text
-		StringParser manipulator = new StringParser(7);
-		BigInteger[] cipherTextAsInts = manipulator.parseCipherText(cipherTextFromFile);
+		StringParser parser = new StringParser();
+		BigInteger[] cipherTextAsInts = parser.parseCipherText(cipherTextFromFile);
 		Decrypter dec = new Decrypter(new PrivateKey(privateKeyString));
 		BigInteger[] decryptedTextAsInts = dec.decrypt(cipherTextAsInts);
-		String decryptedMessage = manipulator.convertToUnicodeString(decryptedTextAsInts);
+		String decryptedMessage = parser.convertToUnicodeString(decryptedTextAsInts);
 		
 		// output
 		System.out.println("Decryption successful.");

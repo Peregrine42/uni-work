@@ -4,21 +4,15 @@ import java.math.BigInteger;
 
 public class StringParser {
 
-	int chunkSize;
-	int unicodeDecimalLength;
+	static int unicodeDecimalLength = 5;
 	
-	public StringParser(int size) {
-		chunkSize = size;
-		unicodeDecimalLength = 5;
-	}
-	
-	public BigInteger[] convertToUnicodeInts(String text) {
+	public BigInteger[] convertToUnicodeInts(String text, int chunkSize) {
 		/**
 		 * converts a string into an array of big integers based
 		 * on their Unicode value.
 		 */
 		
-		String[] messageChunks = splitMessage(text);
+		String[] messageChunks = splitMessage(text, chunkSize);
 		BigInteger[] result = new BigInteger[messageChunks.length];
 		for (int i = 0; i < messageChunks.length; i++) {
 			String string = messageChunks[i];
@@ -95,7 +89,6 @@ public class StringParser {
 		 * becomes:
 		 * "ēde"
 		 */
-		
 		// add zero padding
 		String bigIntMessage = b.toString();
 		int remainder = bigIntMessage.length() % unicodeDecimalLength;
@@ -145,15 +138,11 @@ public class StringParser {
 			asUnicode += asNumber;
 		}
 		
-//		if (asUnicode.equals("")) {
-//			return BigInteger.ZERO;
-//		}
-		
 		BigInteger result = new BigInteger(asUnicode);
 		return result;
 	}
 	
-	private String[] splitMessage(String M) {
+	public String[] splitMessage(String M, int chunkSize) {
 		if (M.isEmpty()) {
 			return new String[0];
 		}
@@ -196,15 +185,5 @@ public class StringParser {
 		}
 		return input;
 	}
-	
-//	public BigInteger[] convert(String message) {
-//		String[] messageChunks = splitMessage(message);
-//		BigInteger[] result = new BigInteger[messageChunks.length];
-//		for (int i = 0; i < messageChunks.length; i++) {
-//			String string = messageChunks[i];
-//			result[i] = stringToUnicodeNumber(string);
-//		}
-//		return result;
-//	}
 	
 }

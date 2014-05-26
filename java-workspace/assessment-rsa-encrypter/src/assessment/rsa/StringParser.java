@@ -153,7 +153,7 @@ public class StringParser {
 		return result;
 	}
 	
-	private String[] splitMessage(String M) {
+	public String[] splitMessage(String M) {
 		if (M.isEmpty()) {
 			return new String[0];
 		}

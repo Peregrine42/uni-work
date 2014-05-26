@@ -14,7 +14,7 @@ public class KeyGeneratorCLI {
 			path = args[0];
 		}
 		
-		KeyGenerator keygen = new KeyGenerator(2048);
+		KeyGenerator keygen = new KeyGenerator(512);
 		new SimpleFile(path, "public.key").write(keygen.getPublicKey().toString());
 		new SimpleFile(path, "private.key").write(keygen.getPrivateKey().toString());
 	}

@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class KeyGenerator {
 
-	public PublicKey publicKey;
+	private PublicKey publicKey;
 	private PrivateKey privateKey;
 	private int primeLength;
 	
@@ -27,25 +27,6 @@ public class KeyGenerator {
 		return publicKey;
 	}
 	
-	public PrivateKey getPrivateKey() {
-		return privateKey;
-	}
-	
-	public PublicKey getPublicKey() {
-		return publicKey;
-	}
-	
-	public BigInteger[] decrypt(BigInteger[] big_ints) {
-		/**
-		 * takes a message as integers, and returns
-		 * the decrypted version of those integers
-		 */
-		
-		// decrypt
-		BigInteger[] decrypted = decryptArray(big_ints, privateKey.d, privateKey.n);
-		return decrypted;
-	}
-	
 	public static BigInteger gcd(BigInteger a, BigInteger b) {
 		/**
 		 * Returns the greatest common divisor
@@ -61,10 +42,33 @@ public class KeyGenerator {
 		}
 	}
 	
+	private static BigInteger[] extendendEuclid(BigInteger a, BigInteger b) {
+		/**
+		 * A recursive function that, given a and b,
+		 * calculates d, s and t from the equation:
+		 * ax + by = g = gcd(a, b)
+		 * Adapted from UCS lecture powerpoint and:
+		 * http://en.wikibooks.org/wiki/Algorithm_Implementation/Mathematics/Extended_Euclidean_algorithm
+		 */
+		
+		if (a.equals(BigInteger.ZERO)) {
+			BigInteger[] result = { b, BigInteger.ZERO, BigInteger.ONE };
+			return result;
+		}
+		
+		BigInteger[] result1 = extendendEuclid(b.mod(a), a);
+		BigInteger g = result1[0];
+		BigInteger y = result1[1];
+		BigInteger x = result1[2];
+		
+		BigInteger[] result = { g, x.subtract(b.divide(a).multiply(y)), y };
+		return result;
+	}
+	
 	public static BigInteger getD(BigInteger e, BigInteger phi) {
 		/**
-		 * Uses extendedEuclid to find r, a and b,
-		 * Then uses a to select the right calculation 
+		 * Uses extendedEuclid to find 'r', 'a' and 'b',
+		 * Then uses 'a' to select the right calculation 
 		 * to find d.
 		 */
 		
@@ -84,7 +88,26 @@ public class KeyGenerator {
 		return d;
 	}
 	
+	private InitialValues makeEandPhiCoprime() {
+		/**
+		 * Sets p, q, phi and e by generating p and q
+		 * then checking phi of p and q is coprime with e
+		 * and looping until they are coprime
+		 */
+		
+		InitialValues values;
+		do {
+			values = new InitialValues();
+		} while (!values.coprime());
+		return values;
+	}
+	
 	private class InitialValues {
+		/**
+		 * Inner class for passing initial values
+		 * around.
+		 */
+		
 		public BigInteger p;
 		public BigInteger q;
 		public BigInteger phi;
@@ -98,6 +121,10 @@ public class KeyGenerator {
 		}
 		
 		public boolean coprime() {
+			/**
+			 * phi and e are coprime if their greatest common devisor is one
+			 * Compares gcd(phi, e) to 1 using BigInteger.compareTo().
+			 */
 			return (BigInteger.ONE.compareTo(gcd(phi, e)) == 0);
 		}
 		
@@ -126,45 +153,11 @@ public class KeyGenerator {
 		}
 	}
 	
-	private static BigInteger[] extendendEuclid(BigInteger a, BigInteger b) {
-		/**
-		 * A recursive function that, given a and b,
-		 * calculates d, s and t from the equation:
-		 * ax + by = g = gcd(a, b)
-		 * Adapted from UCS lecture powerpoint and:
-		 * http://en.wikibooks.org/wiki/Algorithm_Implementation/Mathematics/Extended_Euclidean_algorithm
-		 */
-		
-		if (a.equals(BigInteger.ZERO)) {
-			BigInteger[] result = { b, BigInteger.ZERO, BigInteger.ONE };
-			return result;
-		}
-		
-		BigInteger[] result1 = extendendEuclid(b.mod(a), a);
-		BigInteger g = result1[0];
-		BigInteger y = result1[1];
-		BigInteger x = result1[2];
-		
-		BigInteger[] result = { g, x.subtract(b.divide(a).multiply(y)), y };
-		return result;
+	public PrivateKey getPrivateKey() {
+		return privateKey;
 	}
 	
-	private static BigInteger[] decryptArray(BigInteger[] big_ints, BigInteger d, BigInteger n) {
-		BigInteger[] decrypted = new BigInteger[big_ints.length];
-		for (int i = 0; i < decrypted.length; i++) {
-			decrypted[i] = big_ints[i].modPow(d, n);
-		}
-		
-		return decrypted;
+	public PublicKey getPublicKey() {
+		return publicKey;
 	}
-	
-	private InitialValues makeEandPhiCoprime() {
-		InitialValues values;
-		do {
-			values = new InitialValues();
-		} while (!values.coprime());
-		return values;
-	}
-	
-	
 }

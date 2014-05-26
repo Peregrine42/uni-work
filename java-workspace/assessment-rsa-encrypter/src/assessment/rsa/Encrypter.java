@@ -23,12 +23,5 @@ public class Encrypter {
 		BigInteger C = m.modPow(key.e, key.n);
 		return C;
 	}
-	
-//	private String joinBigInts(BigInteger[] bigInts) {
-//		String result = "";
-//		for (int i = 0; i < bigInts.length; i++) {
-//			result += bigInts[i].toString();
-//		}
-//		return result;
-//	}
+
 }
