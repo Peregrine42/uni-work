@@ -3,55 +3,34 @@ package assessment.rsa.test;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import assessment.rsa.Decrypter;
-import assessment.rsa.Encrypter;
 import assessment.rsa.SimpleFile;
 import assessment.rsa.KeyGenerator;
 import assessment.rsa.PrivateKey;
 import assessment.rsa.PublicKey;
-import assessment.rsa.StringParser;
+import assessment.rsa.StringDecrypter;
+import assessment.rsa.StringEncrypter;
 
 public class IntegrationTest {
 
 	KeyGenerator keygen;
-	StringParser parser;
 	
 	@Before
 	public void setup() {
 		keygen = new KeyGenerator(512);
-		parser = new StringParser(30);
 	}
 	
 	@Test
 	public void integrationTest() {
 		String message = "hello, how are you today? ф! this is a much longer message but we should be able to cope";
 		
-		String cipherText = encryptString(message, keygen.getPublicKey());
-		String decryptedMessage = decryptString(cipherText, keygen.getPrivateKey());
+		String cipherText = new StringEncrypter(keygen.getPublicKey(), 30).encrypt(message);
+		String decryptedMessage = new StringDecrypter(keygen.getPrivateKey()).decryptString(cipherText);
 		
 		assertEquals(message, decryptedMessage);
-	}
-	
-	public String encryptString(String message, PublicKey key) {
-		Encrypter enc = new Encrypter(key);
-		
-		BigInteger[] messageAsInts = parser.convertToUnicodeInts(message);
-		BigInteger[] encryptedMessageAsInts = enc.encrypt(messageAsInts);
-		return parser.concatenateBigInts(encryptedMessageAsInts);
-	}
-	
-	public String decryptString(String cipherText, PrivateKey key) {
-		Decrypter dec = new Decrypter(key);
-		
-		BigInteger[] cipherTextAsInts = parser.parseCipherText(cipherText);
-		BigInteger[] decryptedTextAsInts = dec.decrypt(cipherTextAsInts);
-		
-		return parser.convertToUnicodeString(decryptedTextAsInts);
 	}
 	
 	@Test
@@ -73,7 +52,7 @@ public class IntegrationTest {
 		String messageFromFile = new SimpleFile("output", "integration", "input").read();
 		
 		// encrypt the message
-		String cipherText = encryptString(messageFromFile, new PublicKey(publicKeyString));
+		String cipherText = new StringEncrypter(new PublicKey(publicKeyString), 30).encrypt(messageFromFile);
 		
 		// write ciphertext to file
 		new SimpleFile("output", "integration", "ciphertext").write(cipherText);
@@ -87,7 +66,7 @@ public class IntegrationTest {
 		String cipherTextFromFile = new SimpleFile("output", "integration", "ciphertext").read();
 		
 		// decrypt the cipher text
-		String decryptedMessage = decryptString(cipherTextFromFile, new PrivateKey(privateKeyString));
+		String decryptedMessage = new StringDecrypter(new PrivateKey(privateKeyString)).decryptString(cipherTextFromFile);
 		
 		// output
 		assertEquals(theOriginalMessage, decryptedMessage);

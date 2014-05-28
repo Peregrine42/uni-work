@@ -19,7 +19,7 @@ public class Decrypter {
 		return decrypted;
 	}
 	
-	private BigInteger decrypt(BigInteger big_int) {
+	BigInteger decrypt(BigInteger big_int) {
 		return big_int.modPow(key.d, key.n);
 	}
 }

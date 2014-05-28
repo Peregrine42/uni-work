@@ -145,7 +145,8 @@ public class KeyGenerator {
 			 * https://engineering.purdue.edu/kak/compsec/NewLectures/Lecture12.pdf
 			 */
 			
-			return new BigInteger("65537");
+			//return new BigInteger("65537");
+			return new BigInteger("5");
 		}
 
 		public BigInteger getPhi() {

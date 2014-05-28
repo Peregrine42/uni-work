@@ -1,7 +1,6 @@
 package assessment.rsa;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 public class DecrypterCLI {
 
@@ -27,13 +26,9 @@ public class DecrypterCLI {
 			System.out.println("Path not found.\n" + e.getMessage());
 			return;
 		}
-			
+		
 		// decrypt the cipher text
-		StringParser parser = new StringParser(7);
-		BigInteger[] cipherTextAsInts = parser.parseCipherText(cipherTextFromFile);
-		Decrypter dec = new Decrypter(new PrivateKey(privateKeyString));
-		BigInteger[] decryptedTextAsInts = dec.decrypt(cipherTextAsInts);
-		String decryptedMessage = parser.convertToUnicodeString(decryptedTextAsInts);
+		String decryptedMessage = new StringDecrypter(new PrivateKey(privateKeyString)).decryptString(cipherTextFromFile);
 		
 		// output
 		System.out.println("Decryption successful.");

@@ -1,10 +1,12 @@
 package junk.test;
 
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 import java.math.BigInteger;
-import assessment.rsa.StringParser;
+
+import junk.StringParser;
+
+import org.junit.Test;
 
 public class EncoderTest {
 	@Test

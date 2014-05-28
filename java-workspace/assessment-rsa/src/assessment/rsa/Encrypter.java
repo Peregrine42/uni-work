@@ -19,7 +19,7 @@ public class Encrypter {
 		
 	}
 	
-	private BigInteger encrypt(BigInteger m) {
+	BigInteger encrypt(BigInteger m) {
 		BigInteger C = m.modPow(key.e, key.n);
 		return C;
 	}

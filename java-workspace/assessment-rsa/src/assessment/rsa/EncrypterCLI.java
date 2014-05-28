@@ -1,7 +1,6 @@
 package assessment.rsa;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 public class EncrypterCLI {
 	
@@ -31,12 +30,7 @@ public class EncrypterCLI {
 		}
 		
 		// encrypt the message
-		StringParser parser = new StringParser(7);
-		BigInteger[] messageAsInts = 
-				parser.convertToUnicodeInts(messageFromFile); // split the message into 7-char chunks
-		Encrypter enc = new Encrypter(new PublicKey(publicKeyString));
-		BigInteger[] encryptedMessageAsInts = enc.encrypt(messageAsInts);
-		String cipherText = parser.concatenateBigInts(encryptedMessageAsInts);
+		String cipherText = new StringEncrypter(new PublicKey(publicKeyString), 30).encrypt(messageFromFile);
 		
 		// write ciphertext to file
 		try {
