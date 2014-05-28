@@ -2,17 +2,22 @@ package assessment.rsa.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigInteger;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import assessment.rsa.CipherText;
+import assessment.rsa.Encoding;
 import assessment.rsa.KeyGenerator;
 import assessment.rsa.PlainText;
-import assessment.rsa.UnicodePlainText;
+import assessment.rsa.StringOperations;
+import assessment.rsa.Unicode;
 
 public class IntegrationTest {
 
 	KeyGenerator keygen;
+	Encoding encoding = new Unicode();
 	
 	@Before
 	public void setup() {
@@ -23,10 +28,40 @@ public class IntegrationTest {
 	public void firstIntegrationTest() {
 		String message = "hello!";
 		
-		CipherText C = keygen.getPublicKey().encrypt(new UnicodePlainText(message));
-		PlainText M = keygen.getPrivateKey().decrypt(C);
+		BigInteger m = encoding.plainText(message).toBigInteger();
+		CipherText C = encoding.cipherText(keygen.getPublicKey().encrypt(m));
+		
+		BigInteger n = C.toBigInteger();
+		PlainText M = encoding.plainText(keygen.getPrivateKey().decrypt(n));
 		
 		assertEquals(message, M.toString());
+	}
+	
+	@Test
+	public void secondIntegrationTest() {
+		String message = "hello this is a longer message";
+		
+		String[] longCipherTextSections = StringOperations.splitAtInterval(message, 5);
+		String longCipherText = "";
+		for (String section : longCipherTextSections) {
+			BigInteger m = encoding.plainText(section).toBigInteger();
+			CipherText C = encoding.cipherText(keygen.getPublicKey().encrypt(m));
+			
+			longCipherText += C.toString();
+		}
+		
+		longCipherTextSections = null;
+		
+		longCipherTextSections = longCipherText.split(" ");
+		String longMessage = "";
+		for (String section : longCipherTextSections) {
+			BigInteger n = encoding.cipherText(section).toBigInteger();
+			PlainText M = encoding.plainText(keygen.getPrivateKey().decrypt(n));
+			
+			longMessage += M.toString();
+		}
+		
+		assertEquals(message, longMessage);
 	}
 	
 }
