@@ -30,7 +30,7 @@ public class EncrypterCLI {
 		}
 		
 		// encrypt the message
-		String cipherText = new StringEncrypter(new PublicKey(publicKeyString), 30).encrypt(messageFromFile);
+		String cipherText = new StringEncrypter(new PublicKeyValueObject(publicKeyString), 30).encrypt(messageFromFile);
 		
 		// write ciphertext to file
 		try {

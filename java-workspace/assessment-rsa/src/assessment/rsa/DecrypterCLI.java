@@ -28,7 +28,7 @@ public class DecrypterCLI {
 		}
 		
 		// decrypt the cipher text
-		String decryptedMessage = new StringDecrypter(new PrivateKey(privateKeyString)).decryptString(cipherTextFromFile);
+		String decryptedMessage = new StringDecrypter(new PrivateKeyValueObject(privateKeyString)).decryptString(cipherTextFromFile);
 		
 		// output
 		System.out.println("Decryption successful.");

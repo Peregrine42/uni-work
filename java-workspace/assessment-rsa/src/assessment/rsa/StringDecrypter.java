@@ -9,7 +9,7 @@ public class StringDecrypter {
 	StringSplitter splitter;
 	Decrypter decrypter;
 	
-	public StringDecrypter(PrivateKey key) {
+	public StringDecrypter(PrivateKeyValueObject key) {
 		this.splitter = new StringSplitter();
 		this.decrypter = new Decrypter(key);
 	}

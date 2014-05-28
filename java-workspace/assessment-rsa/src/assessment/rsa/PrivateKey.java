@@ -3,6 +3,7 @@ package assessment.rsa;
 import java.math.BigInteger;
 
 public class PrivateKey {
+
 	public BigInteger d;
 	public BigInteger n;
 	
@@ -20,4 +21,9 @@ public class PrivateKey {
 	public String toString() {
 		return d.toString() + " " + n.toString();
 	}
+	
+	BigInteger decrypt(BigInteger big_int) {
+		return big_int.modPow(d, n);
+	}
+	
 }

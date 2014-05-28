@@ -4,9 +4,9 @@ import java.math.BigInteger;
 
 public class Decrypter {
 
-	PrivateKey key;
+	PrivateKeyValueObject key;
 	
-	public Decrypter(PrivateKey key) {
+	public Decrypter(PrivateKeyValueObject key) {
 		this.key = key;
 	}
 	

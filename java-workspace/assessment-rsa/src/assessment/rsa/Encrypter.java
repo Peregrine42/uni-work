@@ -4,9 +4,9 @@ import java.math.BigInteger;
 
 public class Encrypter {
 	
-	PublicKey key;
+	PublicKeyValueObject key;
 	
-	public Encrypter(PublicKey key) {
+	public Encrypter(PublicKeyValueObject key) {
 		this.key = key;
 	}
 	

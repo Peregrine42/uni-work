@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class KeyGenerator {
 
-	private PublicKey publicKey;
-	private PrivateKey privateKey;
+	private PublicKeyValueObject publicKey;
+	private PrivateKeyValueObject privateKey;
 	private int primeLength;
 	
 	public KeyGenerator(int primeLength) {
@@ -14,15 +14,15 @@ public class KeyGenerator {
 		generate();
 	}
 	
-	public PublicKey generate() {
+	public PublicKeyValueObject generate() {
 		/**
 		 * randomly sets p and q, calculates phi, 
 		 * then makes sure phi is coprime with e
 		 * and generates the public and private keys.
 		 */
 		InitialValues values = makeEandPhiCoprime();
-		privateKey = new PrivateKey(getD(values.getE(), values.getPhi()), values.getN());
-		publicKey = new PublicKey(values.getE(), values.getN());
+		privateKey = new PrivateKeyValueObject(getD(values.getE(), values.getPhi()), values.getN());
+		publicKey = new PublicKeyValueObject(values.getE(), values.getN());
 		
 		return publicKey;
 	}
@@ -154,11 +154,11 @@ public class KeyGenerator {
 		}
 	}
 	
-	public PrivateKey getPrivateKey() {
+	public PrivateKeyValueObject getPrivateKey() {
 		return privateKey;
 	}
 	
-	public PublicKey getPublicKey() {
+	public PublicKeyValueObject getPublicKey() {
 		return publicKey;
 	}
 }
