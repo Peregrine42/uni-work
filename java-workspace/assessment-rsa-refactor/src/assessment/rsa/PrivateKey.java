@@ -24,7 +24,7 @@ public class PrivateKey {
 	
 	public PlainText decrypt(CipherText c) {
 		BigInteger M = decrypt(c.toBigInteger());
-		return new PlainText(M);
+		return new UnicodePlainText(M);
 	}
 	
 	public BigInteger decrypt(BigInteger big_int) {

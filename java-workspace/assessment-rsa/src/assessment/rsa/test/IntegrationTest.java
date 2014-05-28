@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import assessment.rsa.SimpleFile;
 import assessment.rsa.KeyGenerator;
-import assessment.rsa.PrivateKeyValueObject;
-import assessment.rsa.PublicKeyValueObject;
+import assessment.rsa.PrivateKey;
+import assessment.rsa.PublicKey;
 import assessment.rsa.StringDecrypter;
 import assessment.rsa.StringEncrypter;
 
@@ -28,7 +28,7 @@ public class IntegrationTest {
 		String message = "hello, how are you today? ф! this is a much longer message but we should be able to cope";
 		
 		String cipherText = new StringEncrypter(keygen.getPublicKey(), 30).encrypt(message);
-		String decryptedMessage = new StringDecrypter(keygen.getPrivateKey()).decryptString(cipherText);
+		String decryptedMessage = new StringDecrypter(keygen.getPrivateKey()).decrypt(cipherText);
 		
 		assertEquals(message, decryptedMessage);
 	}
@@ -52,7 +52,7 @@ public class IntegrationTest {
 		String messageFromFile = new SimpleFile("output", "integration", "input").read();
 		
 		// encrypt the message
-		String cipherText = new StringEncrypter(new PublicKeyValueObject(publicKeyString), 30).encrypt(messageFromFile);
+		String cipherText = new StringEncrypter(new PublicKey(publicKeyString), 30).encrypt(messageFromFile);
 		
 		// write ciphertext to file
 		new SimpleFile("output", "integration", "ciphertext").write(cipherText);
@@ -66,7 +66,7 @@ public class IntegrationTest {
 		String cipherTextFromFile = new SimpleFile("output", "integration", "ciphertext").read();
 		
 		// decrypt the cipher text
-		String decryptedMessage = new StringDecrypter(new PrivateKeyValueObject(privateKeyString)).decryptString(cipherTextFromFile);
+		String decryptedMessage = new StringDecrypter(new PrivateKey(privateKeyString)).decrypt(cipherTextFromFile);
 		
 		// output
 		assertEquals(theOriginalMessage, decryptedMessage);

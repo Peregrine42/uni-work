@@ -9,12 +9,12 @@ public class StringDecrypter {
 	StringSplitter splitter;
 	Decrypter decrypter;
 	
-	public StringDecrypter(PrivateKeyValueObject key) {
+	public StringDecrypter(PrivateKey key) {
 		this.splitter = new StringSplitter();
 		this.decrypter = new Decrypter(key);
 	}
 	
-	public String decryptString(String cipherText) {
+	public String decrypt(String cipherText) {
 		
 		String[] cipherTextSections = splitter.split(cipherText);
 		

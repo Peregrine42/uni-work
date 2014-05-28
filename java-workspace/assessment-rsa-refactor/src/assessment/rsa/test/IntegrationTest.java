@@ -8,6 +8,7 @@ import org.junit.Test;
 import assessment.rsa.CipherText;
 import assessment.rsa.KeyGenerator;
 import assessment.rsa.PlainText;
+import assessment.rsa.UnicodePlainText;
 
 public class IntegrationTest {
 
@@ -22,7 +23,7 @@ public class IntegrationTest {
 	public void firstIntegrationTest() {
 		String message = "hello!";
 		
-		CipherText C = keygen.getPublicKey().encrypt(new PlainText(message));
+		CipherText C = keygen.getPublicKey().encrypt(new UnicodePlainText(message));
 		PlainText M = keygen.getPrivateKey().decrypt(C);
 		
 		assertEquals(message, M.toString());

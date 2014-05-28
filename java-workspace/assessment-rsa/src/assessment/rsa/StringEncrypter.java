@@ -17,7 +17,7 @@ public class StringEncrypter {
 	private StringSplitter splitter;
 	private int chunkSize;
 	
-	public StringEncrypter(PublicKeyValueObject key, int chunkSize) {
+	public StringEncrypter(PublicKey key, int chunkSize) {
 		this.chunkSize = chunkSize;
 		this.splitter = new StringSplitter();
 		this.encrypter = new Encrypter(key);

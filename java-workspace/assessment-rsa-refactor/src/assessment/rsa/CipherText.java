@@ -3,10 +3,6 @@ package assessment.rsa;
 import java.math.BigInteger;
 
 public class CipherText {
-
-	// handles string to biginteger conversion
-	
-	static int unicodeDecimalLength = 5;
 	
 	String text;
 	

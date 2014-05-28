@@ -6,7 +6,7 @@ public class PublicKey {
 	public BigInteger e;
 	public BigInteger n;
 	
-	public PublicKey(BigInteger e, BigInteger n) {
+	PublicKey(BigInteger e, BigInteger n) {
 		this.e = e;
 		this.n = n;
 	}
@@ -19,10 +19,5 @@ public class PublicKey {
 	
 	public String toString() {
 		return e.toString() + " " + n.toString();
-	}
-	
-	public BigInteger encrypt(BigInteger m) {
-		BigInteger C = m.modPow(e, n);
-		return C;
 	}
 }
