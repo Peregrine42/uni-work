@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 public class CipherText {
 	
+	private static final String seperator = " ";
 	String text;
 	
 	public CipherText(String s) {
