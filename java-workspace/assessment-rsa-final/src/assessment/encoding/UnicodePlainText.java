@@ -2,7 +2,6 @@ package assessment.encoding;
 
 import java.math.BigInteger;
 
-import assessment.rsa.PlainText;
 import assessment.string.StringOperations;
 
 public class UnicodePlainText extends PlainText {

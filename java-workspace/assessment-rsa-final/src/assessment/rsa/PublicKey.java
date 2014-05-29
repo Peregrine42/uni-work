@@ -21,11 +21,6 @@ public class PublicKey {
 		return e.toString() + " " + n.toString();
 	}
 	
-	public CipherText encrypt(PlainText p) {
-		BigInteger C = encrypt(p.toBigInteger());
-		return new CipherText(C);
-	}
-	
 	public BigInteger encrypt(BigInteger m) {
 		BigInteger C = m.modPow(e, n);
 		return C;

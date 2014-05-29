@@ -2,9 +2,9 @@ package assessment.encrypter;
 
 import java.math.BigInteger;
 
+import assessment.encoding.CipherText;
 import assessment.encoding.Encoding;
 import assessment.longstrings.StringOperation;
-import assessment.rsa.CipherText;
 import assessment.rsa.PublicKey;
 
 public class Encrypter implements StringOperation {

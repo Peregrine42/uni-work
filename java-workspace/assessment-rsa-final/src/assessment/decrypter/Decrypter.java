@@ -3,8 +3,8 @@ package assessment.decrypter;
 import java.math.BigInteger;
 
 import assessment.encoding.Encoding;
+import assessment.encoding.PlainText;
 import assessment.longstrings.StringOperation;
-import assessment.rsa.PlainText;
 import assessment.rsa.PrivateKey;
 
 public class Decrypter implements StringOperation {

@@ -22,11 +22,6 @@ public class PrivateKey {
 		return d.toString() + " " + n.toString();
 	}
 	
-	public BigInteger decrypt(CipherText c) {
-		BigInteger M = decrypt(c.toBigInteger());
-		return M;
-	}
-	
 	public BigInteger decrypt(BigInteger big_int) {
 		return big_int.modPow(d, n);
 	}

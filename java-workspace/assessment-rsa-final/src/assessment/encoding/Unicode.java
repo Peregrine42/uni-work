@@ -2,9 +2,6 @@ package assessment.encoding;
 
 import java.math.BigInteger;
 
-import assessment.rsa.CipherText;
-import assessment.rsa.PlainText;
-
 public class Unicode implements Encoding {
 
 	public PlainText plainText(String message) {

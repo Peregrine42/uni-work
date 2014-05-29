@@ -1,4 +1,4 @@
-package assessment.rsa;
+package assessment.encoding;
 
 import java.math.BigInteger;
 
