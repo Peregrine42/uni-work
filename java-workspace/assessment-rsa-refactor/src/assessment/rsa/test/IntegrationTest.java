@@ -51,7 +51,7 @@ public class IntegrationTest {
 			BigInteger m = encoding.plainText(section).toBigInteger();
 			CipherText C = encoding.cipherText(keygen.getPublicKey().encrypt(m));
 			
-			longCipherText += C.toString();
+			longCipherText += C.toString() + " ";
 		}
 		
 		longCipherTextSections = null;
@@ -72,16 +72,23 @@ public class IntegrationTest {
 	public void thirdIntegrationTest() {
 		String message = "hello this is a longer message";
 		
-		Encrypter e = new Encrypter(keygen.getPublicKey(), new Unicode());
-		RegularStringSections cipherTextParts = new RegularStringSections(message, e, 5);
-		String cipherText = cipherTextParts.process();
+		encoding = new Unicode();
 		
-		System.out.println(cipherText);
+		Encrypter e = new Encrypter(keygen.getPublicKey(), encoding);
 		
-		Decrypter d = new Decrypter(keygen.getPrivateKey(), new Unicode());
+		int sectionLength = 5;
+		RegularStringSections cipherTextParts = new RegularStringSections(message, e, sectionLength);
+		
+		String seperator = " ";
+		String cipherText = cipherTextParts.makeString(seperator);
+		
+		Decrypter d = new Decrypter(keygen.getPrivateKey(), encoding);
 		StringSections cipherTextSections = new StringSections(cipherText, d);
-		String longMessage = cipherTextSections.process();
 		
+		seperator = "";
+		String longMessage = cipherTextSections.makeString(seperator);
+		
+		System.out.println("result: " + longMessage);
 		assertEquals(message, longMessage);
 	}
 	

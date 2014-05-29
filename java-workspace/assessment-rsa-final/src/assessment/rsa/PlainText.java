@@ -1,0 +1,27 @@
+package assessment.rsa;
+
+import java.math.BigInteger;
+
+public abstract class PlainText {
+
+	// handles string to biginteger conversion
+	
+	public static int unicodeDecimalLength = 5;
+	public String text;
+	
+	public PlainText(String s) {
+		text = s;
+	}
+	
+	public PlainText(BigInteger i) {
+		text = convertBigInteger(i);
+	}
+	
+	public String toString() {
+		return text.toString();
+	}
+	
+	public abstract BigInteger toBigInteger();
+	
+	public abstract String convertBigInteger(BigInteger b);
+}

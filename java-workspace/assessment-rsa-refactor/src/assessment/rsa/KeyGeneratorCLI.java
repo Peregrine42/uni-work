@@ -24,4 +24,5 @@ public class KeyGeneratorCLI {
 		
 		System.out.println("Key generation complete.");
 	}
+
 }

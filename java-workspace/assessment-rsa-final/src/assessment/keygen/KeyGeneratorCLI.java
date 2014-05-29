@@ -1,6 +1,8 @@
-package assessment.rsa;
+package assessment.keygen;
 
 import java.io.IOException;
+
+import assessment.file.SimpleFile;
 
 public class KeyGeneratorCLI {
 

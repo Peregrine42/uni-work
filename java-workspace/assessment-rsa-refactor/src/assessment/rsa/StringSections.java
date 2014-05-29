@@ -5,26 +5,32 @@ public class StringSections {
 	// splits a string up, processes it,
 	// joins it up
 	
-	private String string;
-	private StringTransformer transformer;
+	String message;
+	StringTransformer transformer;
 	
-	public StringSections(String string, StringTransformer t) {
-		this.string = string;
+	public StringSections(String message, StringTransformer t) {
+		this.message = message;
 		this.transformer = t;
 	}
 
 	public String[] split() {
-		return string.split(" ");
+		return message.split(" ");
 	}
 	
-	public String process() {
+	public String makeString(String seperator) {
 		String[] parts = split();
 		
 		String output = "";
 		
-		for (String section : parts) {
-			output += transformer.stringTransform(section);
+		for (int i = 0; i < parts.length; i++) {
+			//System.out.println(transformer.stringTransform(parts[i]) + seperator);
+			output += transformer.stringTransform(parts[i]) + seperator;
 		}
+		
+//		StringBuilder s = new StringBuilder();
+//		for (String section : parts) {
+//			s.append(transformer.stringTransform(section));
+//		}
 		
 		return output;
 	}

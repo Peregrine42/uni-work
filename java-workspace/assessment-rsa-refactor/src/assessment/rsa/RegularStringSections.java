@@ -9,20 +9,20 @@ public class RegularStringSections extends StringSections {
 		this.chunkSize = chunkSize;
 	}
 	
-	public String[] split(String M) {
+	public String[] split() {
 		
-		if (M.isEmpty()) {
+		if (message.isEmpty()) {
 			return new String[0];
 		}
 		
-		if (M.length() <= chunkSize) {
-			String[] result = { M };
+		if (message.length() <= chunkSize) {
+			String[] result = { message };
 			return result;
 		}
 		
-		int amountOfChunks = (M.length()/chunkSize);
+		int amountOfChunks = (message.length()/chunkSize);
 		
-		if (M.length() % chunkSize != 0) {
+		if (message.length() % chunkSize != 0) {
 			amountOfChunks += 1;
 		}
 
@@ -30,8 +30,8 @@ public class RegularStringSections extends StringSections {
 		
 		String buffer = "";
 		int arrayCounter = 0;
-		for (int i = 0; i < M.length(); i++) {
-			buffer += M.charAt(i);
+		for (int i = 0; i < message.length(); i++) {
+			buffer += message.charAt(i);
 			
 			if (buffer.length() == chunkSize) {
 				result[arrayCounter] = buffer;

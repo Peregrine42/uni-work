@@ -1,7 +1,10 @@
-package assessment.rsa;
+package assessment.keygen;
 
 import java.math.BigInteger;
 import java.util.Random;
+
+import assessment.rsa.PrivateKey;
+import assessment.rsa.PublicKey;
 
 public class KeyGenerator {
 
