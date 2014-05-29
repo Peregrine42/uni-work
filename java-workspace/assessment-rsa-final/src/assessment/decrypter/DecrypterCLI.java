@@ -16,12 +16,11 @@ public class DecrypterCLI {
 		String keyPath = args[0];
 		String inputPath = args[1];
 		
+		// read in the private key and cipher text
 		String privateKeyString;
 		String cipherTextFromFile;
 		try {
-			// read in the private key
 			privateKeyString = new SimpleFile(keyPath).read();
-			// read in the cipher text
 			cipherTextFromFile = new SimpleFile(inputPath).read();
 		} catch (IOException e) {
 			System.out.println("Path not found.\n" + e.getMessage());
@@ -31,7 +30,7 @@ public class DecrypterCLI {
 		// decrypt the cipher text
 		String decryptedMessage = decrypt(cipherTextFromFile, new PrivateKey(privateKeyString));
 		
-		// output
+		// output to console
 		System.out.println("Decryption successful.");
 		System.out.println("Original ciphertext:\n" + cipherTextFromFile);
 		System.out.println("Message reads:\n" + decryptedMessage);
